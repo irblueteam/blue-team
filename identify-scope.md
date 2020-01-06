@@ -1,34 +1,34 @@
-# Identify\(Scope\)
+# شناسایی\(دامنه\)
 
-## SCANNING AND VULNERABILITIES
+## اسکن و آسیب پذیری ها
 
-### NMAP
+### دستور NMAP
 
-#### Ping sweep for network:
+#### استفاده از Ping sweep برای شبکه:
 
 ```text
 # nmap -sn -PE <IP ADDRESS OR RANGE>
 ```
 
-#### Scan and show open ports:
+#### اسکن و نمایش پورت های باز:
 
 ```text
 # nmap --open <IP ADDRESS OF RANGE>
 ```
 
-#### Determine open services:
+#### تعیین سرویس های باز:
 
 ```text
 # nmap -sV <IP ADDRESS>
 ```
 
-#### Scan two common TCP ports, HTTP and HTTPS:
+#### اسکن پورت http و https(tcp):
 
 ```text
 # nmap -p 80,443 <IP ADDRESS OR RANGE>
 ```
 
-#### Scan common UDP port, DNS:
+#### اسکن dns(udp):
 
 ```text
 # nmap -sU -p 53 <IP ADDRESS OR RANGE>
@@ -41,9 +41,9 @@
 25,80,139,8080 <IP ADDRESS>
 ```
 
-### NESSUS
+### دستور NESSUS
 
-#### Basic Nessus scan:
+#### اسکن پایه ای Nessus:
 
 ```text
 # nessus -q -x -T html <NESSUS SERVER IP ADDRESS>
@@ -53,57 +53,57 @@ NAME>.html
 # nessus [-vnh] [-c .refile] [-VJ [-T <format>]
 ```
 
-#### Batch-mode scan:
+#### اسکن Batch-mode:
 
 ```text
 # nessus -q [-pPS] <HOST> <PORT> <USER NAME>
 <PASSWORD> <targets-file> <result-file>
 ```
 
-#### Report conversion:
+#### دریافت گزارش:
 
 ```text
 # nessus -i in. [nsrlnbe] -o
 out. [xmllnsrlnbelhtmlltxt]
 ```
 
-### OPENVAS
+### دستور OPENVAS
 
-**Step 1:** Install the server, client and plugin packages:
+**مرحله 1:** نصب سرور و کلاینت و افزونه ها:
 
 ```text
 # apt-get install openvas-server openvas-client
 openvas-plugins-base openvas-plugins-dfsg
 ```
 
-**Step 2:** Update the vulnerability database
+**مرحله 2:** بروزرسانی پایگاه داده آسیب پذیری ها
 
 ```text
 # openvas-nvt-sync
 ```
 
-**Step 3:** Add a user to run the client:
+**مرحله 3:** اضافه نموده کاربر به کلاینت:
 
 ```text
 # openvas-adduser
 ```
 
-**Step 4:** Login: sysadm
+**مرحله 4:** ورود: sysadm
 
-**Step 5:** Authentication \(pass/cert\) \[pass\]: \[HIT ENTER\]
+**مرحله 5:** احراز هویت \(pass/cert\) \[pass\]: \[HIT ENTER\]
 
-**Step 6:** Login password: 
+**مرحله 6:** کلمه عبور ورود: 
 
-You will then be asked to add "User rules".
+بر اساس سیسات های اضافه نموده کاربر
 
-**Step 7:** Allow this user to scan authorized network by typing:
+**مرحله 7:** اجازه به کاربر برای اسکن شبکه های نیاز مند احراز هویت:
 
 ```text
 accept <YOUR IP ADDRESS OR RANGE>
 default deny
 ```
 
-**Step 8**: type ctrl-D to exit, and then accept.
+**مرحله 8**: کلید های ترکیبی ctrl-D برای خروج.
 
 **Step 9:** Start the server:
 
@@ -111,46 +111,46 @@ default deny
 # service openvas-server start
 ```
 
-**Step 10:** Set targets to scan:
+**مرحله 10:** انتخاب هدف برای اسکن:
 
-Create a text file with a list of hosts/networks to scan.
+ایجاد فایلی شامل هدف ها.
 
 ```text
 # vi scanme.txt
 ```
 
-**Step 11:** Add one host, network per line:
+**مرحله 11:** اضافه نموده هاست های مختلف در هر خط:
 
 ```text
 <IP ADDRESS OR RANGE>
 ```
 
-**Step 12:** Run scan:
+**مرحله 12:** شروع اسکن:
 
 ```text
 # openvas-client -q 127.0.0.1 9390 sysadm nsrc+ws
 scanme.txt openvas-output-.html -T txt -V -x
 ```
 
-**Step 13:** \(Optional\)run scan with HTML format:
+**مرحله 13:** \(دلخواه\)شروع اسکن با فرمت html:
 
 ```text
 # openvas-client -q 127.0.0.1 9390 sysadm nsrc+ws
 scanme.txt openvas-output.txt -T html -V -x
 ```
 
-## WINDOWS
+## ویندوز
 
-### NETWORK DISCOVERY
+### شناسایی شبکه
 
-#### Basic network discovery:
+#### شناسایی پایه ای شبکه:
 
 ```text
 C:> net view /all
 C:> net view \\<HOST NAME>
 ```
 
-#### Basic ping scan and write output to file:
+#### استفاده از ping برای اسکن و ذخیره حاصل درون فایل:
 
 ```text
 C:\> for /L %I in (1,1,254) do ping -w 30 -n 1
@@ -160,7 +160,7 @@ NAME>.txt
 
 ### DHCP
 
-#### Enable DHCP server logging:
+#### فعال سازی گزارشات DHCP:
 
 ```text
 C:\> reg add
@@ -168,7 +168,7 @@ HKLM\System\CurrentControlSet\Services\DhcpServer\Pa
 rameters /v ActivityLogFlag /t REG_DWORD /d 1
 ```
 
-#### **Default Location Windows 2003/2008/2012:**
+#### **مسیر پیش فرض ویندوز های 2003/2008/2012:**
 
 ```text
 C:> %windir%\System32\Dhcp
@@ -176,82 +176,82 @@ C:> %windir%\System32\Dhcp
 
 ### DNS
 
-#### Default location Windows 2003:
+#### مسیر پیش فرض ویندوز 2003:
 
 ```text
 C:\> %SystemRoot%\System32\Dns
 ```
 
-#### Default location Windows 2008:
+#### مسیر پیشفرض Windows 2008:
 
 ```text
 C:\> %SystemRoot%\System32\Winevt\Logs\DNS
 Server. evtx
 ```
 
-#### Default location of enhanced DNS Windows 2012 R2:
+#### مسیر پیش فرض dns در ویندوز 2012 R2:
 
 ```text
 C:\> %SystemRoot%\System32\Winevt\Logs\Microsoft­
 Windows-DNSServer%4Analytical.etl
 ```
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/library/cc940779.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/library/cc940779.aspx
 
-#### Enable DNS Logging:
+#### فعال سازی گزارش دهی DNS:
 
 ```text
 C:\> DNSCmd <DNS SERVER NAME> /config /logLevel
 0x8100F331
 ```
 
-#### Set log location:
+#### تنظیم مسیر log:
 
 ```text
 C:\> DNSCmd <DNS SERVER NAME> /config /LogFilePath
 <PATH TO LOG FILE>
 ```
 
-#### Set size of log file:
+#### تظیم اندازه فایل های گزارشات:
 
 ```text
 C:\> DNSCmd <DNS SERVER NAME> /config
 /logfilemaxsize 0xffffffff
 ```
 
-### HASHING
+### هش
 
-#### File Checksum Integrity Verifier \(FCIV\):
+#### نرم افزار File Checksum Integrity Verifier \(FCIV\):
 
-Ref. [http://support2.microsoft.com/kb/841290](http://support2.microsoft.com/kb/841290)
+منبع. [http://support2.microsoft.com/kb/841290](http://support2.microsoft.com/kb/841290)
 
-#### Hash a file:
+#### هش یک فایل:
 
 ```text
 C:\> fciv.exe <FILE TO HASH>
 ```
 
-#### Hash all files on C: into a database file:
+#### هش کلیه فایل های درایور C: و فایل آن در دیتابیس xml:
 
 ```text
 C:\> fciv.exe c:\ -r -mdS -xml <FILE NAME>.xml
 ```
 
-#### List all hashed files:
+#### لیست کلیه هش های فایل ها:
 
 ```text
 C:\> fciv.exe -list -shal -xml <FILE NAME>.xml
 ```
 
-#### Verify previous hashes in db with file system:
+#### هش های قبلی را با سیستم فایل بررسی می کند:
 
 ```text
 C:\> fciv.exe -v -shal -xml <FILE NAME>.xml
 ```
 
-#### Note: May be possible to create a master db and compare to all systems from a cmd line. Fast baseline and difference.
+#### ممکن است ایجاد یک db master و مقایسه با همه سیستم ها از یک خط cmd امکان پذیر باشد..
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/library/dn520872.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/library/dn520872.aspx
 
 ```text
 PS C:\> Get-FileHash <FILE TO HASH> I Format-List
@@ -262,42 +262,42 @@ C:\> certutil -hashfile <FILE TO HASH> MD5
 
 ### NETBIOS
 
-#### Basic nbtstat scan:
+#### اسکن پایه ای nbtstat:
 
 ```text
 C:\> nbtstat -A <IP ADDRESS>
 ```
 
-#### Cached NetBIOS info on localhost:
+#### ذخیره اطلاعات NetBIOS در localhost:
 
 ```text
 C:> nbtstat -c
 ```
 
-#### Script loop scan:
+#### اسکریپت اسکن حلقه ای:
 
 ```text
 C:\> for /L %I in (1,1,254) do nbstat -An
 192.168.l.%I
 ```
 
-### USER ACTIVITY
+### فعالیت های کاربر
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psloggedon.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psloggedon.aspx
 
-#### Get users logged on:
+#### نمایش کاربر وارد شده:
 
 ```text
 C:\> psloggedon \\computername
 ```
 
-#### Script loop scan:
+#### اسکریپت اسکن حلقه ای :
 
 C:&gt; for /L %i in \(1,1,254\) do psloggedon \192.168.l.%i &gt;&gt; C:\users\_output.txt
 
-### PASSWORDS
+### کلمه عبور ها
 
-#### Password guessing or checks:
+#### حدس یا بررسی کلمه عبور:
 
 ```text
 # for /f %i in (<PASSWORD FILE NAME>.txt) do
@@ -311,30 +311,30 @@ echo %i:%j >> success.txt && net use \\<IP ADDRESS>
 /del)
 ```
 
-### MICROSOFT BASELINE SECURITY ANALYZER \(MBSA\)
+### بررسی MICROSOFT BASELINE SECURITY ANALYZER \(MBSA\)
 
-#### Basic scan of a target IP address:
+#### اسکن پایه ای ip هدف:
 
 ```text
 C:\> mbsacli.exe /target <TARGET IP ADDRESS> /n
 os+iis+sql+password
 ```
 
-#### Basic scan of a target IP range:
+#### اسکن پایه ای محدوده ip هدف:
 
 ```text
 C:\> mbsacli.exe /r <IP ADDRESS RANGE> /n
 os+iis+sql+password
 ```
 
-#### Basic scan of a target domain:
+#### اسکن پایه ای دامین هدف:
 
 ```text
 C:\> mbsacli.exe /d <TARGET DOMAIN> /n
 os+iis+sql+password
 ```
 
-#### Basic scan of a target computer names in text file:
+#### اسکن پایه ای برای نام های درون فایل txt:
 
 ```text
 C:\> mbsacli.exe /listfile <LISTNAME OF COMPUTER
@@ -343,55 +343,55 @@ NAMES>.txt /n os+iis+sql+password
 
 ### ACTIVE DIRECTORY INVENTORY
 
-#### List all OUs:
+#### لیست کل OU ها:
 
 ```text
 C:\> dsquery ou DC=<DOMAIN>,DC=<DOMAIN EXTENSION>
 ```
 
-#### List of workstations in the domain:
+#### لیست کلیه ایستگاه های کاری دامین:
 
 ```text
 C:\> netdom query WORKSTATION
 ```
 
-#### List of servers in the domain:
+#### لیست کلیه سرور های دامین:
 
 ```text
 C:\> netdom query SERVER
 ```
 
-#### List of domain controllers:
+#### لیست کلیه domain controllers:
 
 ```text
 C:\> netdom query DC
 ```
 
-#### List of organizational units under which the specified user can create a machine object:
+#### لیست کلیه ou که کاربر حق ایجاد object را دارد:
 
 ```text
 C:\> netdom query OU
 ```
 
-#### List of primary domain controller:
+#### لیست domain controller ثانویه:
 
 ```text
 C:\> netdom query PDC
 ```
 
-#### List the domain trusts:
+#### لیست کلیه دامین های مورد اعتماد:
 
 ```text
 C:\> netdom query TRUST
 ```
 
-#### Query the domain for the current list of FSMO owners
+#### لیست فعلی صاحبان FSMO را مشخص می کند
 
 ```text
 C:\> netdom query FSMO
 ```
 
-#### List all computers from Active Directory:
+#### لیست کلیه رایانه های  Active Directory:
 
 ```text
 C:\> dsquery COMPUTER "OU=servers,DC=<DOMAIN
@@ -399,13 +399,13 @@ NAME>,DC=<DOMAIN EXTENSION>" -o rdn -limit 0 >
 C:\machines.txt
 ```
 
-#### List user accounts inactive longer than 3 weeks:
+#### لیست کلیه کاربران غیر فعال در 3 هفته اخیر
 
 ```text
 C:\> dsquery user domainroot -inactive 3
 ```
 
-#### Find anything \(or user\) created on date in UTC using timestamp format YYYYMMDDHHMMSS.sZ:
+#### جست و جو هر چیز \(یا هر کاربر\) که timestamp آن به شکل YYYYMMDDHHMMSS.sZ است:
 
 ```text
 C:\> dsquery * -filter
@@ -415,7 +415,7 @@ C:\> dsquery * -filter
 ) ) II
 ```
 
-#### **Alt option:**
+#### **راه مشابه:**
 
 ```text
 C:\> ldifde -d ou=<OU NAME>,dC=<DOMAIN
@@ -424,9 +424,9 @@ whenchanged -p onelevel -r "(ObjectCategory=user)" -
 f <OUTPUT FILENAME>
 ```
 
-**The last logon timestamp format in UTC: YYYYMMDDHHMMSS**
+**timestamp آخرین ورود UTC: YYYYMMDDHHMMSS**
 
-**Alt option:**
+**راه مشابه:**
 
 ```text
 C:\> dsquery * dc=<DOMAIN NAME>,dc=<DOMAIN
@@ -434,7 +434,7 @@ EXTENSION> -filter "(&(objectCategory=Person)
 (objectClass=User)(whenCreated>=20151001000000.0Z))"
 ```
 
-**Alt option:**
+**راه مشابه:**
 
 ```text
 C:\> adfind -csv -b dc=<DOMAIN NAME>,dc=<DOMAIN
@@ -442,7 +442,7 @@ EXTENSION> -f "(&(objectCategory=Person)
 (objectClass=User)(whenCreated>=20151001000000.0Z))"
 ```
 
-#### Using PowerShell, dump new Active Directory accounts in last 90 Days:
+#### با استفاده از powershell لیست کلیه کاربرانی که در 90 روز اخیر در active directory ایجاد شده اند:
 
 ```text
 PS C:\> import-module activedirectory
@@ -453,11 +453,11 @@ I Where-Object {$_.whenCreated -ge ((Get­
 Date).AddDays(-90)).Date}
 ```
 
-## LINUX
+## لینوکس
 
-### NETWORK DISCOVERY
+### شناسایی شبکه
 
-#### Net view scan:
+#### اسکن نمای شبکه:
 
 ```text
 # smbtree -b
@@ -465,14 +465,14 @@ Date).AddDays(-90)).Date}
 # smbtree -5
 ```
 
-#### View open 5MB shares:
+#### نمایش محیط های به اشتراک گذاشته شده به اندازه 5 مگابایت:
 
 ```text
 # smbclient -L <HOST NAME>
 # smbstatus
 ```
 
-#### Basic ping scan:
+#### اسکن پایه ای با ping:
 
 ```text
 # for ip in $(seq 1 254); do ping -c 1
@@ -482,21 +482,21 @@ Date).AddDays(-90)).Date}
 
 ### DHCP
 
-#### View DHCP lease logs:
+#### مشاهده گزاراشت:
 
-#### **Red Hat 3:**
+#### **در Red Hat 3:**
 
 ```text
 # cat /var/lib/dhcpd/dhcpd. leases
 ```
 
-**Ubuntu:**
+**در Ubuntu:**
 
 ```text
 # grep -Ei 'dhcp' /var/log/syslog.1
 ```
 
-Ubuntu DHCP logs:
+## نمایش آن در Ubuntu:
 
 ```text
 # tail -f dhcpd. log
@@ -504,21 +504,21 @@ Ubuntu DHCP logs:
 
 ### DNS
 
-#### Start DNS logging:
+#### شروع گزاراش دهی DNS:
 
 ```text
 rndc querylog
 ```
 
-#### View DNS logs:
+#### نمیش گزاراشات DNS:
 
 ```text
 # tail -f /var/log/messages I grep named
 ```
 
-### HASHING
+### هش
 
-#### Hash all executable files in these specified locations:
+#### هش کلیه فایل های اجرایی در مسیر خاص:
 
 ```text
 # find /<PATHNAME TO ENUMERATE> -type f -exec mdSsum
@@ -528,15 +528,15 @@ rndc querylog
 
 ### NETBIOS
 
-#### Basic nbtstat scan:
+#### اسکن پایه ای nbtstat:
 
 ```text
 nbtscan <IP ADDRESS OR RANGE>
 ```
 
-### PASSWORDS
+### کلمه عبور ها
 
-#### Password and username guessing or checks:
+#### بررسی و حدس نام کاربری و کلمه عبور:
 
 ```text
 while read line; do username=$line; while read
@@ -544,4 +544,3 @@ line; do smbclient -L <TARGET IP ADDRESS> -U
 $username%$line -g -d 0; echo $username:$line;
 done<<PASSWORDS>.txt;done<<USER NAMES>.txt
 ```
-
