@@ -1,32 +1,31 @@
-# Incident Management\(Checklist\)
+# چک لیست مدیریت حوادث
 
-## INCIDENT RESPONSE CHECKLIST
+## چک لیست پاسخ دهی
 
-Note: This section is intended to be an incident response guide. Some tasks may not be relevant, required or appropriate. Please consider your environment before implementing each step or other steps as needed.
+این بخش چک لیست راهنمای پاسخ دهی به حوادث است و بخش های مختلفی دارد که نیازمند است با توجه به محیط های مختلف استفاده شود.
 
-### IDENTIFICATION TASKS
+### شناسایی task ها
 
-![](.gitbook/assets/1.PNG)
+![](/assets/images/1.PNG)
 
-![](.gitbook/assets/2.PNG)
+![](/assets/images/2.PNG)
 
-### CONTAINMENT TASKS
+### محتویات task ها
 
-![](.gitbook/assets/3.PNG)
+![](/assets/images/3.PNG)
 
-### REMEDIATION TASKS
+### اصلاح task ها
 
-![](.gitbook/assets/4.PNG)
+![](/assets/images/4.PNG)
 
-![](.gitbook/assets/5.PNG)
+![](/assets/images/5.PNG)
 
-### OTHER/ LESSONS LEARNED TASKS
+### دیگر موارد درباره task ها
 
-![](.gitbook/assets/6.PNG)
+![](/assets/images/6.PNG)
 
-### MALWARE ATTRIBUTES CHECKLIST
+### چک لیست ویژگی های MALWARE
 
-![](.gitbook/assets/7.PNG)
+![](/assets/images/7.PNG)
 
-![](.gitbook/assets/8.PNG)
-
+![](/assets/images/8.PNG)
