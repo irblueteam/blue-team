@@ -1,86 +1,86 @@
-# Tactics\(Tips & Tricks\)
+# روش های و نکات
 
-## OS CHEATS
+## برگه رمز های سیستم عامل
 
-### WINDOWS
+### ویندوز
 
-#### Pipe output to clipboard:
+#### استفاده از Pipe برای خروجی ها و استفاده در clipboard:
 
 ```text
-C:\> some_command.exe I clip
+C:\> some_command.exe | clip
 ```
 
-#### Output clip to file: \(Requires PowerShell 5\)
+#### دریافت اطلاعات از clipboard در ذخیره آن در فایل: \(نیازمند PowerShell 5\)
 
 ```text
 PS C:\> Get-Clipboard> clip.txt
 ```
 
-#### Add time stamps into log file:
+#### اضافه نمودن timestamps در فایل گزارشات:
 
 ```text
 C:\> echo %DATE% %TIME%>> <TXT LOG>,txt
 ```
 
-#### Add/Modify registry value remotely:
+#### اضافه/تغییر کلید های رجیستری از راه دور:
 
 ```text
 C:\> reg add \\<REMOTE COMPUTER
 NAME>\HKLM\Software\<REG KEY INFO>
 ```
 
-#### Get registry value remotely:
+#### دریافت مقدار های رجیستری به صورت از راه دور:
 
 ```text
 C:\> reg query \\<REMOTE COMPUTER
 NAME>\HKLM\Software\<REG KEY INFO>
 ```
 
-#### Test to see if Registry Path exists:
+#### بررسی و تست مسیر های رجیستری:
 
 ```text
 PS C:\> Test-Path "HKCU:\Software\Microsoft\<HIVE>"
 ```
 
-#### Copy files remotely:
+#### کپی از فایل ها از راه دور:
 
 ```text
 C:\> robocopy C:\<SOURCE SHARED FOLDER>
 \\<DESTINATION COMPUTER>\<DESTINATION FOLDER> /E
 ```
 
-#### Check to see if certain file extensions are in a directory:
+#### بررسی پسوند های مختلف فایل ها در مسیر:
 
 ```text
 PS C:\> Test-Path C:\Scripts\Archive\* -include
 *·PSl, *,VbS
 ```
 
-#### Show contents of a file:
+#### نمایش محتوای فایل ها:
 
 ```text
 C:\> type <FILE NAME>
 ```
 
-#### Combine contents of multiple files:
+#### ادغام محتوای چندین فایل:
 
 ```text
 C:\> type <FILE NAME 1> <FILE NAME 2> <FILE NAME 3>
 > <NEW FILE NAME>
 ```
 
-#### Desktops, allows multiple Desktop Screens:
+#### Desktop ها, اجازه به ایجاد چند صفحه نمایش به Desktop:
 
-Ref. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) sysinternals/cc817881
+منبع. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) sysinternals/cc817881
 
-#### Run live option:
+#### اجرا به صورت live:
 
 ```text
 C:\> "%ProgramFiles%\Internet Explorer\iexplore.exe
 "https://live.sysinternals.com/desktops.exe
 ```
 
-#### Remote mounting, Read and Read/Write:
+#### mounting از راه دور و اجازه به نوشتن و خواندن, Read and Read/Write:
 
 ```text
 C:\> net share MyShare_R=c:\<READ ONLY FOLDER>
@@ -89,9 +89,9 @@ C:\> net share MyShare_RW=c:\<READ/WRITE FOLDER>
 /GRANT:EVERYONE,FULL
 ```
 
-#### Remote task execution using PSEXEC:
+#### اجرای task از راه دور با استفاده از PSEXEC:
 
-Ref. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) sysinternals/psexec.aspx
+منبع. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) sysinternals/psexec.aspx
 
 ```text
 C:\> psexec.exe \\<TARGET IP ADDRESS> -u <USER NAME>
@@ -104,7 +104,7 @@ C:\> psexec.exe @(:\<TARGET FILE LIST>.csv -u
 C:\<PROGRAM>.exe
 ```
 
-#### Remote task execution and send output to share:
+#### اجرای task و ارسال نتیجه آن به محیط اشتراکی:
 
 ```text
 C:\> wmic /node:ComputerName process call create
@@ -112,7 +112,7 @@ ucmd,exe /c netstat -an > \\<REMOTE SHARE>\<OUTPUT
 FILE NAME>,txt"
 ```
 
-#### Compare two files for changes:
+#### مقایسه تغییرات دو فایل:
 
 ```text
 PS C:\> Compare-Object (Get-Content ,<LOG FILE NAME
@@ -120,42 +120,42 @@ l>, log) -DifferenceObject (Get-Content .<LOG FILE
 NAME 2>,log)
 ```
 
-#### Remote task execution using PowerShell:
+#### اجرای task از راه دور با استفاده از PowerShell:
 
 ```text
 PS C:\> Invoke-Command -<COMPUTER NAME> {<PS
 COMMAND>}
 ```
 
-#### PowerShell Command Help:
+#### راهنمای دستورات PowerShell:
 
 ```text
 PS C:\> Get-Help <PS COMMAND> -full
 ```
 
-### LINUX
+### لینوکس
 
-#### Analyze traffic remotely over ssh:
+#### بررسی و تحلیل ترافیک از راه دور بر روی ssh:
 
 ```text
 # ssh root@<REMOTE IP ADDRESS OF HOST TO SNIFF>
 tcpdump -i any -U -s 0 -w - 'not port 22'
 ```
 
-#### Manually add note/data to syslog:
+#### ایجاد دستی یادداشت یا داده به syslog:
 
 ```text
 # logger usomething important to note in Log"
 # dmesg I grep <COMMENT>
 ```
 
-#### Simple read only mounting:
+#### ایجاد mounting به صورت فقط خواندنی:
 
 ```text
 # mount -o ro /dev/<YOUR FOLDER OR DRIVE> /mnt
 ```
 
-#### Mounting remotely over SSH:
+#### ایجاد Mounting از راه دور بر روی SSH:
 
 ```text
 # apt-get install sshfs
@@ -166,7 +166,7 @@ mkdir 󰁝/<WHERE TO MOUNT LOCALLY>
 PATH> 󰁝/<WHERE TO MOUNT LOCALLY>
 ```
 
-#### Creating SMB share in Linux:
+#### ایجاد محیط اشتراکی SMB در لینوکس:
 
 ```text
 # useradd -m <NEW USER>
@@ -185,45 +185,45 @@ PATH> 󰁝/<WHERE TO MOUNT LOCALLY>
 # service smbd restart
 ```
 
-#### Visit share from remote system:
+#### نمایش محیط اشتراکی سیستم از راه دور:
 
 ```text
 > smb:\\<IP ADDRESS OF LINUX SMB SHARE>
 ```
 
-#### Copy files to remote system:
+#### کپی فایل از راه دور به سیستم دیگر:
 
 ```text
 > scp <FILE NAME> <USER NAME>@<DESTINATION IP
 ADDRESS>:/<REMOTE FOLDER>
 ```
 
-#### Mount and SMB share to remote system:
+#### ایجاد Mount و محیط اشتراکی SMB در سیستم دیگر از راه دور:
 
 ```text
 # mount -t smbfs -o username=<USER NAME> //<SERVER
 NAME OR IP ADDRESS>/<SHARE NAME> /mnt/<MOUNT POINT>/
 ```
 
-#### Monitor a website or file is still up/there:
+#### نظارت بر وبسایت و فایل ها:
 
 ```text
 #while :; do curl -sSr http://<URL> I head -n 1;
 sleep 60; done
 ```
 
-method 2\([reference](https://unix.stackexchange.com/questions/84814/health-check-of-web-page-using-curl)\):
+روش دوم\([reference](https://unix.stackexchange.com/questions/84814/health-check-of-web-page-using-curl)\):
 
 ```text
 for i in `curl -s -L cnn.com |egrep --only-matching "http(s?):\/\/[^ \"\(\)\<\>]*" | uniq` ;
 do curl -s -I $i 2>/dev/null |head -n 1 | cut -d$' ' -f2; sleep 60; done
 ```
 
-## DECODING
+## رمزگشایی
 
-### HEX CONVERSION
+### ارتباط HEX
 
-#### Convert from hex to decimal in Windows:
+#### تبدیل از حالت hex به decimal در ویندوز:
 
 ```text
 C:\> set /a 0xff
@@ -232,7 +232,7 @@ PS C:\> 0xff
 255
 ```
 
-#### Other Basic Math in Windows:
+#### دیگر عملیات های ریاضی در ویندوز:
 
 ```text
 C:\> set /a 1+2
@@ -245,36 +245,36 @@ C:\> set /a "32>>3"
 4
 ```
 
-#### Decode Base64 text in a file:
+#### رمزگشایی متن Base64 درون یک فایل:
 
 ```text
 C:\> certutil -decode <BASE64
 <DECODED FILE NAME>
 ```
 
-#### Decode XOR and search for http:
+#### رمزگشایی XOR جست و جو برای http:
 
-Ref, [https://blog.didierstevens.com/programs/xorsearch/](https://blog.didierstevens.com/programs/xorsearch/)
+منبع, [https://blog.didierstevens.com/programs/xorsearch/](https://blog.didierstevens.com/programs/xorsearch/)
 
 ```text
 C:\> xorsearch,exe -i -s <INPUT FILE NAME> http
 ```
 
-#### Convert from hex to decimal in Linux:
+#### تبدیل hex به decimal در لینوکس:
 
 ```text
 # echo u0xff"lwcalc -d
 = 255
 ```
 
-#### Convert from decimal to hex in Linux:
+#### تبدیل decimal به hex در لینوکس:
 
 ```text
 $ echo u25s"1wcalc -h
 = 0xff
 ```
 
-#### Decode HTML Strings:
+#### رمزگشایی رشته های HTML:
 
 ```text
 PS C:\> Add-Type -AssemblyName System.Web
@@ -284,13 +284,13 @@ PS C:\>
 HTTP://Hello World.com
 ```
 
-## SNORT
+## ابزار SNORT
 
-### SNORT RULES
+### قوانین SNORT
 
-#### Snort Rules to detect Meterpreter traffic:
+#### قوانین Snort برای شناسایی ترافیک Meterpreter:
 
-Ref. [https://blog.didierstevens.com/2015/06/16/metasploit](https://blog.didierstevens.com/2015/06/16/metasploit) -meterpreter-reverse-https-snort-rule/
+منبع. [https://blog.didierstevens.com/2015/06/16/metasploit](https://blog.didierstevens.com/2015/06/16/metasploit) -meterpreter-reverse-https-snort-rule/
 
 ```text
 alert tcp $HOME_NET any-> $EXTERNAL_NET $HTTP_PORTS
@@ -365,9 +365,9 @@ kpost-metasploit-user-agent-strings/; sid:1618007;
 rev: 1;)
 ```
 
-#### Snort Rules to detect PSEXEC traffic:
+#### قوانین Snort برای شناسایی ترافیک PSEXEC:
 
-Ref. [https://github.com/John-Lin/dockersnort/](https://github.com/John-Lin/dockersnort/) blob/master/snortrules-snapshot- 2972/rules/policy-other.rules
+منبع. [https://github.com/John-Lin/dockersnort/](https://github.com/John-Lin/dockersnort/) blob/master/snortrules-snapshot- 2972/rules/policy-other.rules
 
 ```text
 alert tcp $HOME_NET any -> $HOME_NET [139,445]
@@ -393,25 +393,25 @@ sysinternals/bb897553.aspx[l]; classtype:policyviolation;
 sid:30281; rev:1;)
 ```
 
-## DOS/DDOS
+## حملات DOS و DDOS
 
-### FINGERPRINT DOS/DDOS
+### امضای حملات DOS و DDOS
 
-#### Fingerprinting the type of DoS/DDoS:
+#### روش های حملات DoS و DDoS:
 
-Ref. [https://www.trustwave.com/Resources/SpiderLabsBlog/](https://www.trustwave.com/Resources/SpiderLabsBlog/) PCAP-Files-Are-Great-Arn-t-They--/ 
+منبع. [https://www.trustwave.com/Resources/SpiderLabsBlog/](https://www.trustwave.com/Resources/SpiderLabsBlog/) PCAP-Files-Are-Great-Arn-t-They--/ 
 
-**Volumetric:** Bandwidth consumption Example, sustaining sending 1Gb of traffic to 10Mb connection 
+** بر اساس حجم:** به عنوان مثال مصرف پهنای باند از 1 گیگابایت به 10 گیگابایت برسد 
 
-Ref. [http://freecode.com/projects/iftop](http://freecode.com/projects/iftop)
+منبع. [http://freecode.com/projects/iftop](http://freecode.com/projects/iftop)
 
 ```text
 # iftop -n
 ```
 
-**and Protocol:** Use of specific protocol 
+**بر اساس پروتکل های مختلف:** استفاده از پروتکل های مختلف 
 
-Example, SYN Flood, ICMP Flood, UDP flood
+برای مثال, SYN Flood, ICMP Flood, UDP flood
 
 ```text
 # tshark -r <FILE NAME>,pcap -q -z io,phs
@@ -423,25 +423,25 @@ tail
 # netstat -s
 ```
 
-Example, isolate one protocol and or remove other protocols
+برای مثال فقط یک پروتکل را هدف قرار میگیرد
 
 ```text
 # tcpdump -nn not arp and not icmp and not udp
 # tcpdump -nn tcp
 ```
 
-**Resource:** State and connection exhaustion 
+**منبع:** وضیعت اتصال 
 
-Example, Firewall can handle 10,000 simultaneous connections, and attacker sends 20,000
+به عنوان مثال ، فایروال می تواند 10،000 اتصال همزمان را کنترل کند ، و مهاجم 20،000 ارسال می کند
 
 ```text
 # netstat -n I awk '{print $6}' I sort I uniq -c
 sort -nr I head
 ```
 
-**Application:** Layer 7 attacks
+**برنامه ها:** حملات لایه 7
 
-Example, HTTP GET flood, for a large image file.
+برای مثال, HTTP GET flood, برای فایل عکس های حجیم.
 
 ```text
 # tshark -c 10000 -T fields -e http.host
@@ -454,7 +454,7 @@ head -n 10c
 ":"
 ```
 
-#### Example, look for excessive file requests, GIF, ZIP, JPEG, PDF, PNG.
+#### برای مثال , درخواست برای فایل های پرونده های, GIF, ZIP, JPEG, PDF, PNG غیر معمول نباشد.
 
 ```text
 # tshark -Y "http contains "ff:d8"" | "http
@@ -464,28 +464,28 @@ contains "GIF89a"" || "http contains
 "\x89\x50\x4E\x47""
 ```
 
-#### Example, Look for web application 'user-agent' pattern of abuse.
+#### به عنوان مثال به مقدار 'user-agent' در درخواست وب توجه و بررسی شود.
 
 ```text
 # tcpdump -c 1000 -Ann I grep -Ei 'user-agent'
 sort I uniq -c I sort -nr I head -10
 ```
 
-#### Example, show HTTP Header of requested resources.
+#### به عنوان مثال, Header منابع درخواستی بررسی شود.
 
 ```text
 # tcpdump -i en0 -A -s 500 I grep -i refer
 ```
 
-#### Sniff HTTP Headers for signs of repeat abuse:
+#### بررسی درخواست های HTTP برای شناسایی الگو های مشکوک و یا خطرناک:
 
 ```text
 # tcpdump -s 1024 -l -A dst <EXAMPLE.COM>
 ```
 
-**Poison:** Layer 2 attacks
+**مسموم نمودن یا Poison:** حملات لایه 2
 
-Example, ARP poison, race condition DNS, DHCP
+برای مثال , ARP poison, race condition DNS, DHCP
 
 ```text
 # tcpdump 'arp or icmp'
@@ -496,85 +496,74 @@ sort -n I tail
 grep arp.duplicate-address-detected
 ```
 
-## TOOL SUITES
+## مجموعه ابزار ها
 
-### PREBUILT ISO, VIRTUAL MACHINE AND DISTRIBUTIONS
+### ماشین ها و سیستم عامل های از پیش تهیه شده
 
 #### KALI - Open Source Pentesting Distribution
 
-Ref. [https://www.kali.org](https://www.kali.org)
+منبع. [https://www.kali.org](https://www.kali.org)
 
 #### SIFT - SANS Investigative Forensics Toolkit
 
-Ref. [http://sift.readthedocs.org/](http://sift.readthedocs.org/)
+منبع. [http://sift.readthedocs.org/](http://sift.readthedocs.org/)
 
 #### REMNUX - A Linux Toolkit for Reverse-Engineering and Analyzing Malware
 
-Ref. [https://remnux.org](https://remnux.org)
+منبع. [https://remnux.org](https://remnux.org)
 
 #### OPEN VAS - Open Source vulnerability scanner and manager
 
-Ref. [http://www.openvas.org](http://www.openvas.org)
+منبع. [http://www.openvas.org](http://www.openvas.org)
 
 #### MOLOCH - Large scale IPv4 packet capturing \(PCAP\), indexing and database system
 
-Ref. [https://github.com/aol/moloch/wiki](https://github.com/aol/moloch/wiki)
+منبع. [https://github.com/aol/moloch/wiki](https://github.com/aol/moloch/wiki)
 
 #### SECURITY ONION - Linux distro for intrusion detection, network security monitoring, and log management
 
-Ref. [https://security-onionsolutions](https://security-onionsolutions). github.io/security-onion/
+منبع. [https://security-onionsolutions](https://security-onionsolutions). github.io/security-onion/
 
 #### NAGIOS - Network Monitoring, Alerting, Response, and Reporting Tool
 
-Ref. [https://www.nagios.org](https://www.nagios.org)
+منبع. [https://www.nagios.org](https://www.nagios.org)
 
 #### OSSEC - Scalable, multi-platform, open source Hostbased Intrusion Detection System
 
-Ref. [http://ossec.github.io](http://ossec.github.io)
+منبع. [http://ossec.github.io](http://ossec.github.io)
 
 #### SAMURAI WTF - Pre-configured web pen-testing environment
 
-Ref. [http://samurai.inguardians.com](http://samurai.inguardians.com)
+منبع. [http://samurai.inguardians.com](http://samurai.inguardians.com)
 
 #### RTIR - Request Tracker for Incident Response
 
-Ref. [https://www.bestpractical.com/rtir/](https://www.bestpractical.com/rtir/)
+منبع. [https://www.bestpractical.com/rtir/](https://www.bestpractical.com/rtir/)
 
 #### HONEYDRIVE - Pre-configured honeypot software packages
 
-Ref. [http://sourceforge.net/projects/honeydrive/](http://sourceforge.net/projects/honeydrive/)
+منبع. [http://sourceforge.net/projects/honeydrive/](http://sourceforge.net/projects/honeydrive/)
 
-#### The Enhanced Mitigation Experience Toolkit - helps prevent vulnerabilities in software from being successfully exploited
+#### ابزار های جلوگیری از اجرای موفقیت آمیز اکسپلویت
 
-Ref. [https://support.microsoft.com/en-us/kb/2458544](https://support.microsoft.com/en-us/kb/2458544)
+منبع. [https://support.microsoft.com/en-us/kb/2458544](https://support.microsoft.com/en-us/kb/2458544)
 
 #### ATTACK SURFACE ANALYZER BY MICROSOFT - Baseline Tool
 
-Ref. [https://www.microsoft.com/enus/](https://www.microsoft.com/enus/) download/confirmation.aspx?id=24487
+منبع. [https://www.microsoft.com/enus/](https://www.microsoft.com/enus/) download/confirmation.aspx?id=24487
 
 #### WINDOWS TO GO - USB Portable Windows 8
 
-Ref. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) library/hh831833.aspx
+منبع. [https://technet.microsoft.com/enus/](https://technet.microsoft.com/enus/) library/hh831833.aspx
 
 #### WINFE - Windows Forensic Environment on CD/USB
 
-Ref. [http://winfe.wordpress.com/](http://winfe.wordpress.com/)
+منبع. [http://winfe.wordpress.com/](http://winfe.wordpress.com/)
 
 #### DCEPT - Deploying and detecting use of Active Directory honeytokens
 
-Ref. [https://www.secureworks.com/blog/dcept](https://www.secureworks.com/blog/dcept)
+منبع. [https://www.secureworks.com/blog/dcept](https://www.secureworks.com/blog/dcept)
 
 #### TAILS - The Amnesic Incognito Live System
 
-Ref. [https://tails.boum.org](https://tails.boum.org)
-
-
-
-
-
-
-
-
-
-
-
+منبع. [https://tails.boum.org](https://tails.boum.org)
