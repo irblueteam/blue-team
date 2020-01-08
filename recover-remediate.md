@@ -1,17 +1,17 @@
-# Recover\(Remediate\)
+# کارهای پس از حمله(recovery)
 
-## PATCHING
+## پیاده سازی
 
-### WINDOWS
+### ویندوز
 
-#### Single Hotfix update for Windows 7 or higher:
+#### استفاده از یک بروزرسانی Hotfix برای ویندوز 7 و یا بالا تر:
 
 ```text
 C:\> wusa.exe C:\<PATH TO HOTFIX>\Windows6.0-
 KB934307-x86.msu
 ```
 
-#### Set of single hotfix updates for pre Windows 7 by running a batch script:
+#### استفاده از یک بروزرسانی Hotfix برای ویندوز 7 و یا بالا تر با استفاده از اسکریپت batch:
 
 ```text
 @echo off
@@ -22,143 +22,143 @@ set PATHTOFIXES=E:\hotfix
 %PATHTOFIXES%\Q123789_w2k_sp4_x86.exe /2 /M
 ```
 
-#### To check and update Windows 7 or higher:
+#### بررسی بروزرسانی های ویندوز 7 و یا بالاتر:
 
 ```text
 C:\> wuauclt.exe /detectnow /updatenow
 ```
 
-### LINUX
+### لینوکس
 
-#### Ubuntu:
+#### توزیع Ubuntu:
 
-#### Fetch list of available updates:
+#### دریافت لیست بروزرسانی ها:
 
 ```text
 # apt-get update
 ```
 
-#### Strictly upgrade the current packages:
+#### ارتقا بسته های فعلی:
 
 ```text
 # apt-get upgrade
 ```
 
-#### Install updates \(new ones\):
+#### نصب بروزرسانی ها \(جدید\):
 
 ```text
 # apt-get dist-upgrade
 ```
 
-#### Red Hat Enterprise Linux 2.1,3,4:
+#### توریع Red Hat Enterprise Linux 2.1,3,4:
 
 ```text
 # up2date
 ```
 
-#### To update non-interactively:
+#### بروزرسانی بدون تعامل:
 
 ```text
 # up2date-nox --update
 ```
 
-#### To install a specific package:
+#### نصب بسته ای با نام آن:
 
 ```text
 # up2date <PACKAGE NAME>
 ```
 
-#### To update a specific package:
+#### بروزرسانی بسته ای با نام آن:
 
 ```text
 # up2date -u <PACKAGE NAME>
 ```
 
-#### Red Hat Enterprise Linux 5:
+#### توزیع Red Hat Enterprise Linux 5:
 
 ```text
 # pup
 ```
 
-#### Red Hat Enterprise Linux 6:
+#### توزیع Red Hat Enterprise Linux 6:
 
 ```text
 # yum update
 ```
 
-#### To list a specific installed package:
+#### لیست بست های نصب شده:
 
 ```text
 # yum list installed <PACKAGE NAME>
 ```
 
-#### To install a specific package:
+#### نصب بسته ای با نام آن:
 
 ```text
 # yum install <PACKAGE NAME>
 ```
 
-#### To update a specific package:
+#### بروزرسانی بسته ای با نام آن:
 
 ```text
 # yum update <PACKAGE NAME>
 ```
 
-#### Kali:
+#### توریع Kali:
 
 ```text
 # apt-get update && apt-get upgrade
 ```
 
-### BACKUP
+### پشتیبان گیری
 
-#### WINDOWS
+#### ویندوز
 
-#### Backup GPO Audit Policy to backup file:
+#### نسخه پشتیبان از Backup GPO Audit Policy در فایل csv:
 
 ```text
 C:\> auditpol /backup /file:C\auditpolicy.csv
 ```
 
-#### Restore GPO Audit Policy from backup file:
+#### بازگرداندن نسخه پشتیبان GPO Audit Policy از فایل csv:
 
 ```text
 C:\> auditpol /restore /file:C:\auditpolicy.csv
 ```
 
-#### Backup All GPOs in domain and save to Path:
+#### تهیه نسخه پشتیبان از تمامی GPO های در دامین و ذخیره آن در مسیر مشخص:
 
 ```text
 PS C:\> Backup-Gpo -All -Path \\<SERVER>\<PATH TO
 BACKUPS>
 ```
 
-#### Restore All GPOs in domain and save to Path:
+#### بازگرداندن نسخه پشتیبان GPO های در دامین و از مسیر مشخص:
 
 ```text
 PS C:\> Restore-GPO -All -Domain <INSERT DOMAIN
 NAME> -Path \\Serverl\GpoBackups
 ```
 
-#### Start Volume Shadow Service:
+#### شروع سرویس Volume Shadow:
 
 ```text
 C:\> net start VSS
 ```
 
-#### List all shadow files and storage:
+#### لیست کلیه فایل های shadow و storage:
 
 ```text
 C:\> vssadmin List ShadowStorage
 ```
 
-#### List all shadow files:
+#### لیست کلیه فایل های shadow:
 
 ```text
 C:\> vssadmin List Shadows
 ```
 
-#### Browse Shadow Copy for files/folders:
+#### جست و جو Shadow Copy برای فایل ها و فولدر ها:
 
 ```text
 C:\> mklink /d c:\<CREATE FOLDER>\<PROVIDE FOLDER
@@ -166,16 +166,16 @@ NAME BUT DO NOT CREATE>
 \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopyl\
 ```
 
-#### Revert back to a selected shadow file on Windows Server and Windows 8:
+#### پرش به فایل shadow انتخاب شده در ویندوز سرور و ویندوز 8:
 
 ```text
 C:\> vssadmin revert shadow /shadow={<SHADOW COPY
 ID>} /ForceDismount
 ```
 
-#### List a files previous versions history using volrest.exe:
+#### تاریخچه نسخه های قبلی فایل را با volrest.exe بازیابی کنید:
 
-Ref. [https://www.microsoft.com/enus/](https://www.microsoft.com/enus/) download/details.aspx?id=17657
+منبع. [https://www.microsoft.com/enus/](https://www.microsoft.com/enus/) download/details.aspx?id=17657
 
 ```text
 C:\> "\Program Files (x86)\Windows Resource
@@ -183,7 +183,7 @@ Kits\Tools\volrest.exe" "\\localhost\c$\<PATH TO
 FILE>\<FILE NAME>"
 ```
 
-#### Revert back to a selected previous file version or @GMT file name for specific previous version using volrest.exe:
+#### پرش به نسخه انتخاب شده از فایل یا  @GMT با استفاده از volrest.exe:
 
 ```text
 C:\> subst Z: \\localhost\c$\$\<PATH TO FILE>
@@ -194,7 +194,7 @@ COMMAND ABOVE>" /R:Z:\
 C:\> subst Z: /0
 ```
 
-#### Revert back a directory and subdirectory files previous version using volrest.exe:
+#### پرش به مسیر و یا زیر مسیر دیگر با استفاده از volrest.exe:
 
 ```text
 C: \> "\Program Files (x86) \Windows Resource
@@ -202,26 +202,26 @@ Kits\Tools\volrest.exe" \\localhost\c$\<PATH TO
 FOLDER\*·* /5 /r:\\localhost\c$\<PATH TO FOLDER>\
 ```
 
-#### Revert back to a selected shadow file on Windows Server and Windows 7 and 10 using wmic:
+#### پرش به فایل shadow انتخاب شده در ویندوز سرور و ویندوز 7 و ویندوز 10 با استفاده از wmic:
 
 ```text
 C:\> wmic shadowcopy call create Volume='C:\'
 ```
 
-#### Create a shadow copy of volume C on Windows 7 and 10 using PowerShell:
+#### ایجاد یک کپی shadow از volume C بر روی ویندوز 7 و ویندوز 10 با استفاده از PowerShell:
 
 ```text
 PS C:\> (gwmi -list
 win32_shadowcopy).Create('C:\', 'ClientAccessible')
 ```
 
-#### Create a shadow copy of volume C on Windows Server 2003 and 2008:
+#### ایجاد یک shadow copy از volume C بر روی ویندوز سرور 2003 و ویندوز سرور 2008:
 
 ```text
 C:\> vssadmin create shadow /for=c:
 ```
 
-#### Create restore point on Windows:
+#### ایجاد یک نقطه بازیابی در ویندوز:
 
 ```text
 C:\> wmic.exe /Namespace:\\root\default Path
@@ -229,7 +229,7 @@ SystemRestore Call CreateRestorePoint "%DATE%", 100,
 7
 ```
 
-#### Start system restore points on Windows XP:
+#### بازیابی به نقطه بازیابی در ویندوز Windows XP:
 
 ```text
 C:\> sc config srservice start= disabled
@@ -240,100 +240,100 @@ REG_DWORD /d 1 /f
 C:\> net stop srservice
 ```
 
-#### List of restore points:
+#### لیست نقاط قابل بازیابی:
 
 ```text
 PS C:\> Get-ComputerRestorePoint
 ```
 
-#### Restore from a specific restore point:
+#### بازگرداندن به نقطه قابل بازیابی:
 
 ```text
 PS C:\> Restore-Computer -RestorePoint <RESTORE
 POINT#> -Confirm
 ```
 
-### LINUX
+### لینوکس
 
-#### Reset root password in single user mode:
+#### راه اندازی مجدد کلمه عبور کاربر root در حالت single user mode:
 
-**Step 1:** Reboot system.
+**مرحله 1:** راه اندازی مجدد سیستم.
 
 ```text
 # reboot -f
 ```
 
-**Step 2:** Press ESC at GRUB screen.
+**مرحله 2:** فشردن کلید ESC برای ورود به صفحه GRUB.
 
-**Step 3:** Select default entry and then 'e' for edit.
+**مرحله 3:** انتخاب موجودیت پیش فرض و فشردن کلید e برای ویرایش.
 
-**Step 4:** Scroll down until, you see a line that starts with linux, linux16 or linuxefi.
+**مرحله 4:** جست و جو برای خطی که آغاز آن با کلمات linux و linux16 یا linuxefi آغاز شده است.
 
-**Step 5:** At end of that line leave a space and add without quote 'rw init=/bin/bash'
+**مرحله 5:** انتهای آن این خط 'rw init=/bin/bash' را اضافه کنید.
 
-**Step 6:** Press Ctrl-X to reboot.
+**مرحله 6:** فشردن کلید های ترکیبی Ctrl-X برای راه اندازی مجدد.
 
-**Step 7:** After reboot, should be in single user mode and root, change password.
+**مرحله 7:** بعد از راه اندازی مجدد باید در حالت  single user mode و کاربر root وارد شوید وبتوانید کلمه عبور خود را با دستور زیر تغییر دهید.
 
 ```text
 # passwd
 ```
 
-**Step 8:** Reboot system.
+**مرحله 8:** راه اندازی مجدد سیستم.
 
 ```text
 # reboot -f
 ```
 
-#### Reinstall a package:
+#### نصب مجدد بسته ها:
 
 ```text
 # apt-get install --reinstall <COMPROMISED PACKAGE
 NAME>
 ```
 
-#### Reinstall all packages:
+#### نصب مجدد تمام بسته ها:
 
 ```text
 # apt-get install --reinstall $(dpkg --getselections
 lgrep -v deinstall)
 ```
 
-## KILL MALWARE PROCESS
+## حذف فرآیند MALWARE
 
-### WINDOWS
+### ویندوز
 
-#### Malware Removal:
+#### ابزار Malware Removal:
 
-Ref. [http://www.gmer.net/](http://www.gmer.net/)
+منبع. [http://www.gmer.net/](http://www.gmer.net/)
 
 ```text
 C:\> gmer.exe (GUI)
 ```
 
-#### Kill running malicious file:
+#### حذف فایل مشکوک در حال اجرا:
 
 ```text
 C:\> gmer.exe -killfile
 C:\WINDOWS\system32\drivers\<MALICIOUS FILENAME>.exe
 ```
 
-#### Kill running malicious file in PowerShell:
+#### حذف فایل مشکوک در حال اجرا در PowerShell:
 
 ```text
 PS C:\> Stop-Process -Name <PROCESS NAME>
 PS C:\> Stop-Process -ID <PID>
 ```
 
-### LINUX
+### لینوکس
 
-#### Stop a malware process:
+#### توقف فرآیند malware:
 
 ```text
 # kill <MALICIOUS PID>
 ```
 
-#### Change the malware process from execution and move:
+#### ایجاد قابلیت اجرایی malware و تغییر مسیر آن:
 
 ```text
 # chmod -x /usr/sbin/<SUSPICIOUS FILE NAME>
@@ -341,22 +341,3 @@ PS C:\> Stop-Process -ID <PID>
 # mv /usr/sbin/<SUSPICIOUS FILE NAME>
 /home/quarantine/
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
