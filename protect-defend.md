@@ -1,10 +1,10 @@
-# Protect\(Defend\)
+# محافظت\(دفاع\)
 
-## WINDOWS
+## ویندوز
 
-### DISABLE/STOP SERVICES
+### غیر فعال سازی و یا توقف سرویس ها
 
-#### Get a list of services and disable or stop:
+#### لیست سرویس های متوقف و یا غیر فعال شده:
 
 ```text
 C:\> sc query
@@ -14,15 +14,15 @@ C:\> wmic service where name='<SERVICE NAME>' call
 ChangeStartmode Disabled
 ```
 
-### HOST SYSTEM FIREWALLS
+### فایروال میزبان
 
-#### Show all rules:
+#### نمایش تمام rule ها:
 
 ```text
 C:\> netsh advfirewall firewall show rule name=all
 ```
 
-#### Set firewall on/off:
+#### روشن و یا خاموش نمودن فایروال :
 
 ```text
 C:\> netsh advfirewall set currentprofile state on
@@ -35,7 +35,7 @@ C:\> netsh advfirewall set allprofile state on
 C:\> netsh advfirewall set allprof ile state off
 ```
 
-#### Set firewall rules examples:
+#### تنظیم rule جدید برای فایروال:
 
 ```text
 C:\> netsh advfirewall firewall add rule name="Open
@@ -77,14 +77,14 @@ C:\> netsh advfirewall firewall set rule
 group="remote desktop" new enable=No profile=public
 ```
 
-#### Setup togging location:
+#### تنظیم موقعیت مکانی گزارشات:
 
 ```text
 C:\> netsh advfirewall set currentprofile logging
 C:\<LOCATION>\<FILE NAME>
 ```
 
-#### Windows firewall tog location and settings:
+#### تنظیم و تغییر موقعیت گزارشات فایروال:
 
 ```text
 C:\>
@@ -101,7 +101,7 @@ C:\> netsh advfirewall set allprofile logging
 allowedconnections enable
 ```
 
-#### Display firewall logs:
+#### نمایش گزارشات فایروال:
 
 ```text
 PS C:\> Get-Content
@@ -109,61 +109,61 @@ $env:systemroot\system32\LogFiles\Firewall\pfirewall
 . log
 ```
 
-### PASSWORDS
+### کلمه عبور ها
 
-#### Change password:
+#### تغییر کلمه عبور:
 
 ```text
 C:\> net user <USER NAME> * /domain
 C:\> net user <USER NAME> <NEW PASSWORD>
 ```
 
-### Change password remotely:
+### تغییر کلمه عبور از راه دور:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb897543 
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb897543 
 
 ```text
 C:\> pspasswd.exe \\<IP ADDRESS or NAME OF REMOTE
 COMPUTER> -u <REMOTE USER NAME> -p <NEW PASSWORD>
 ```
 
-#### Change password remotely:
+#### تغییر کلمه عبور از راه دور:
 
 ```text
 PS C:\> pspasswd.exe \\<IP ADDRESS or NAME OF REMOTE
 COMPUTER>
 ```
 
-### HOST FILE
+### فایل های میزبان
 
-#### Flush DNS of malicious domain/IP:
+#### تنظیم دوباره DNS:
 
 ```text
 C:\> ipconfig /flushdns
 ```
 
-#### Flush NetBios cache of host/IP:
+#### تنظیم دوباره حافظه نهان NetBios:
 
 ```text
 C:\> nbtstat -R
 ```
 
-#### Add new malicious domain to hosts file, and route to localhost:
+#### اضافه نمودن دامنه مخرب و هدایت آن به localhost:
 
 ```text
 C:\> echo 127.0.0.1 <MALICIOUS DOMAIN> >>
 C:\Windows\System32\drivers\etc\hosts
 ```
 
-#### Check if hosts file is working, by sending ping to 127.0.0.1:
+#### بررسی فایل های میزبان با ارسال ping 127.0.0.1:
 
 ```text
 C:\> ping <MALICIOUS DOMAIN> -n 1
 ```
 
-### WHITELIST
+### لیست سفید
 
-#### Use a Proxy Auto Config\(PAC\) file to create Bad URL or IP List \(IE, Firefox, Chrome\):
+#### ایجاد و استفاده از فایل Proxy Auto Config\(PAC\) برای url و ip های مشکوک:
 
 ```text
 function FindProxyForURL(url, host) {
@@ -179,16 +179,16 @@ return "DIRECT";
 }
 ```
 
-### APPLICATION RESTRICTIONS
+### محدودیت های برنامه ای
 
-#### Applocker - Server 2008 R2 or Windows 7 or higher: Using GUI Wizard configure:
+#### استفاده از Applocker - برای Server 2008 R2 یا Windows 7 یا بالا تر:
 
-* Executable Rules \(. exe, . com\)
-* DLL Rules \( .dll, .ocx\)
-* Script Rules \(.psl, .bat, .cmd, .vbs, .js\)
-* Windows Install Rules \( .msi, .msp, .mst\)
+* rule هایی برای فایل های اجرایی \(. exe, . com\)
+* rule های dll \( .dll, .ocx\)
+* rule های اسکریپت ها \(.psl, .bat, .cmd, .vbs, .js\)
+* rule های نصب برنامه \( .msi, .msp, .mst\)
 
-#### Steps to employ Applocker \(GUI is needed for digital signed app restrictions\):
+#### مراحل کار با Applocker \(نیازمند GUI\):
 
 **Step 1:** Create a new GPO.
 
@@ -233,27 +233,27 @@ C:\ shutdown.exe /r /m \\<IP ADDRESS OR COMPUTER
 NAME> /f
 ```
 
-#### Add the Applocker cmdlets into PowerShell:
+#### استفاده از ماژول Applocker در PowerShell:
 
 ```text
 PS C:\> import-module Applocker
 ```
 
-#### Gets the file information for all of the executable files and scripts in the directory C:\Windows\System32:
+#### اطلاعات درباره پرونده و فایل های اجرایی و غیر اجرای در مسیر C:\Windows\System32 را نمایش می دهد:
 
 ```text
 PS C:\> Get-ApplockerFileinformation -Directory
 C:\Windows\System32\ -Recurse -FileType Exe, Script
 ```
 
-#### Create a Applocker Policy that allow rules for all of the executable files in C:\Windows\System32:
+#### ایجاد policy در Applocker برای کلیه فایل های اجرایی در مسیر C:\Windows\System32:
 
 ```text
 PS C:\> Get-ApplockerFileinformation -Directory
 C:\Windows\System32\ -Recurse -FileType Exe, Script
 ```
 
-#### Create a Applocker Policy that allow rules for all of the executable files in C:\Windows\System32:
+#### ایجاد policy در Applocker برای اجازه به کلیه فایل های اجرایی در مسیر C:\Windows\System32:
 
 ```text
 PS C:\> Get-Childitem C:\Windows\System32\*,exe I
@@ -262,13 +262,13 @@ RuleType Publisher, Hash -User Everyone -
 RuleNamePrefix System32
 ```
 
-#### Sets the local Applocker policy to the policy specified in C:\Policy.xml:
+#### تغییر policy های موجود با استفاده از فایل  C:\Policy.xml:
 
 ```text
 PS C:\> Set-AppLockerPolicy -XMLPolicy C:\Policy.xml
 ```
 
-#### Uses the Applocker policy in C:\Policy.xml to test whether calc.exe and notepad.exe are allowed to run for users who are members of the Everyone group. If you do not specify a group, the Everyone group is used by default:
+#### استفاده از policy های Applocker برای اجازه به اجرای notepad و calc برای کاربرانی که عضو گروه everyone هستند:
 
 ```text
 PS C:\> Test-AppLockerPolicy -XMLPolicy
@@ -276,7 +276,7 @@ C:\Policy.xml -Path C:\Windows\System32\calc.exe,
 C:\Windows\System32\notepad.exe -User Everyone
 ```
 
-#### Review how many times a file would have been blocked from running if rules were enforced:
+#### ایجاد محدودیت برای تعداد اجرا:
 
 ```text
 PS C:\> Get-ApplockerFileinformation -Eventlog -
@@ -284,7 +284,7 @@ Logname "Microsoft-Windows-Applocker\EXE and DLL" -
 EventType Audited -Statistics
 ```
 
-#### Creates a new Applocker policy from the audited events in the local Microsoft-Windows-Applocker/EXE and DLL event log, applied to  and current Applocker policy will be overwritten:
+#### ایجاد یک policy برای Applocker از event های audited شده برای فایل های exe و dll:
 
 ```text
 PS C:\> Get-ApplockerFileinformation -Eventlog -
@@ -297,7 +297,7 @@ LDAP "LDAP://<DC>,<DOMAIN>.com/CN={31B2F340-016D-
 00C04FB984F9},CN=Policies,CN=System,DC=<DOMAIN>,DC=com"
 ```
 
-#### Export the local Applocker policy, comparing User's explicitly denied access to run, and output text file:
+#### استخراج کلیه policy های Applocker:
 
 ```text
 PS C:\> Get-AppLockerPolicy -Local I Test­
@@ -306,7 +306,7 @@ User domain\<USER NAME> -Filter Denied I Format-List
 -Property Path > C:\DeniedFiles.txt
 ```
 
-#### Export the results of the test to a file for analysis:
+#### بررسی و تست فایل استخراج شده policy های Applocker:
 
 ```text
 PS C:\> Get-Childitem <DirectoryPathtoReview> -
@@ -317,15 +317,15 @@ Filter <TypeofRuletoFilterFor> I Export-CSV
 <PathToExportResultsTo.CSV>
 ```
 
-#### GridView list of any local rules applicable:
+#### نمایش لیست GridView برای کلیه rule ها:
 
 ```text
 PS C:\> Get-AppLockerPolicy -Local -Xml I Out­-GridView
 ```
 
-### IPSEC
+### دستور IPSEC
 
-#### Create a IPSEC Local Security Policy, applied to any connection, any protocol, and using a preshared key:
+#### ایجاد یک Local Security Policy برای Applocker برای هر گونه اتصال و پروتکلی و با استفاده از preshared key:
 
 ```text
 C:\> netsh ipsec static add filter
@@ -341,7 +341,7 @@ filteraction=MyIPsecAction conntype=all activate=yes
 psk=<PASSWORD>
 ```
 
-#### Add rule to allow web browsing port 80\(HTTP\) and 443\(HTTPS\) over IPSEC:
+#### اضافه نمودن rule مربوط به اجازه به پورت 80 و 443 در ipsec:
 
 ```text
 C:\> netsh ipsec static add filteraction name=Allow
@@ -358,21 +358,21 @@ filteraction=Allow conntype=all activate=yes
 psk=<PASSWORD>
 ```
 
-#### Shows the IPSEC Local Security Policy with name "MyIPsecPolicy":
+#### نمایش کلیه Local Security Policy در ipsec که اسم آن "MyIPsecPolicy":
 
 ```text
 C:\> netsh ipsec static show policy
 name=MyIPsecPolicy
 ```
 
-#### Stop or Unassign a IPSEC Policy:
+#### توقف و یا عدم استفاده از policy ها در IPSEC:
 
 ```text
 C:\> netsh ipsec static set policy
 name=MyIPsecPolicy
 ```
 
-#### Create a IPSEC Advance Firewall Rule and Policy and preshared key from and to any connections:
+#### ایجاد یک policy و rule و preshared key جدید برای هر گونه اتصالی:
 
 ```text
 C:\> netsh advfirewall consec add rule name= u IPSEC"
@@ -380,7 +380,7 @@ endpointl=any endpoint2=any
 action=requireinrequireout qmsecmethods=default
 ```
 
-#### Require IPSEC preshared key on all outgoing requests:
+#### نیازمند preshared key برای کلیه درخواست های outgoing در ipsec:
 
 ```text
 C:\> netsh advfirewall firewall add rule
@@ -389,7 +389,7 @@ profile=any localip=any remoteip=any protocol=any
 interfacetype=any security=authenticate
 ```
 
-#### Create a rule for web browsing:
+#### ایجاد یک rule برای  web browsing:
 
 ```text
 C:\> netsh advfirewall firewall add rule name="Allow
@@ -397,7 +397,7 @@ Outbound Port 80 11 dir=out localport=80 protocol=TCP
 action=allow
 ```
 
-#### Create a rule for DNS:
+#### ایجاد یک rule برای DNS:
 
 ```text
 C:\> netsh advfirewall firewall add rule name="Allow
@@ -405,36 +405,36 @@ Outbound Port 53 11 dir=out localport=53 protocol=UDP
 action=allow
 ```
 
-#### Delete ISPEC Rule:
+#### حذف Rule در IPSEC:
 
 ```text
 C:\> netsh advfirewall firewall delete rule
 name="IPSEC_RULE"
 ```
 
-### ACTIVE DIRECTORY \(AD\) - GROUP POLICY OBJECT \(GPO\)
+### ACTIVE DIRECTORY \(AD\) و GROUP POLICY OBJECT \(GPO\)
 
-#### Get and force new policies:
+#### دریافت و اعمال policie های جدید:
 
 ```text
 C:\> gpupdate /force
 C:\> gpupdate /sync
 ```
 
-#### Audit Success and Failure for user Bob:
+#### Audit موفق و ناموفق برای کاربر Bob:
 
 ```text
 C:> auditpol /set /user:bob /category:"Detailed
 Tracking" /include /success:enable /failure:enable
 ```
 
-#### Create an Organization Unit to move suspected or infected users and machines:
+#### ایجاد یک Organization Unit برای انتقال کاربران و رایانه های مشکوک:
 
 ```text
 C:\> dsadd OU <QUARANTINE BAD OU>
 ```
 
-#### Move an active directory user object into NEW GROUP:
+#### انتقال کاربران active directory به گروه جدید NEW GROUP:
 
 ```text
 PS C:\> Move-ADObject 'CN=<USER NAME>,CN=<OLD USER
@@ -443,7 +443,7 @@ TargetPath 'OU=<NEW USER GROUP>,DC=<OLD
 DOMAIN>,DC=<OLD EXTENSION>'
 ```
 
-**Alt Option:**
+**روش مشابه:**
 
 ```text
 C:\> dsmove "CN=<USER NAME>,OU=<OLD USER OU>,DC=<OLD
@@ -451,9 +451,9 @@ DOMAIN>,DC=<OLD EXTENSION>" -newparent OU=<NEW USER
 GROUP>,DC=<OLD DOMAIN>,DC=<OLD EXTENSION>
 ```
 
-### STAND ALONE SYSTEM - WITHOUT ACTIVE DIRECTORY \(AD\)
+### سیستم بدون ACTIVE DIRECTORY \(AD\)
 
-#### Disallow running a .exe file:
+#### عدم اجازه به فایل .exe:
 
 ```text
 C:\> reg add
@@ -466,7 +466,7 @@ cies\Explorer\DisallowRun" /v badfile.exe /t REG_SZ
 /d <BAD FILE NAME>.exe /f
 ```
 
-#### Disable Remote Desktop:
+#### غیرفعال سازی Remote Desktop:
 
 ```text
 C:\> reg add
@@ -474,7 +474,7 @@ C:\> reg add
 Server" /f /v fDenyTSConnections /t REG_DWORD /d 1
 ```
 
-#### Send NTLMv2 response only/refuse LM and NTLM: \(Windows 7 default\)
+#### ارسال پاسخ NTLMv2 فقط برای LM و NTLM: \(به صورت پیش فرض در ویندوز 7\)
 
 ```text
 C:\> reg add
@@ -482,7 +482,7 @@ HKLM\SYSTEM\CurrentControlSet\Control\Lsa\ /v
 lmcompatibilitylevel /t REG_DWORD /d 5 /f
 ```
 
-#### Restrict Anonymous Access:
+#### محدود نموده دسترسی ناشناس:
 
 ```text
 C:\> reg add
@@ -490,7 +490,7 @@ HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v
 restrictanonymous /t REG_DWORD /d 1 /f
 ```
 
-#### Do not allow anonymous enumeration of SAM accounts and shares:
+#### عدم اجازه دسترسی ناشناسان به SAM accounts و shares:
 
 ```text
 C:\> reg add
@@ -498,7 +498,7 @@ HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v
 restrictanonymoussam /t REG_DWORD /d 1 /f
 ```
 
-#### Disable IPV6:
+#### غیر فعال سازی IPV6:
 
 ```text
 C:\> reg add
@@ -506,7 +506,7 @@ HKLM\SYSTEM\CurrentControlSet\services\TCPIP6\Parame
 ters /v DisabledComponents /t REG_DWORD /d 255 /f
 ```
 
-#### Disable sticky keys:
+#### غیر فعال سازی کلید ها sticky:
 
 ```text
 C:\> reg add "HKCU\Control
@@ -514,7 +514,7 @@ Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ
 /d 506 /f
 ```
 
-#### Disable Toggle Keys:
+#### غیر فعال سازی تغییر کلید ها:
 
 ```text
 C:\> reg add "HKCU\Control
@@ -522,7 +522,7 @@ Panel \Accessibility\ ToggleKeys" /v Flags /t REG_SZ
 Id 58 /f
 ```
 
-#### Disable Filter Keys:
+#### غیر فعال سازی کلید های فیتلر:
 
 ```text
 C:\> reg add "HKCU\Control
@@ -530,7 +530,7 @@ Panel\Accessibility\Keyboard Response" /v Flags /t
 REG_SZ /d 122 /f
 ```
 
-#### Disable On-screen Keyboard:
+#### غیرفعال سازی On-screen Keyboard:
 
 ```text
 C:\> reg add
@@ -538,7 +538,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI
 /f /v ShowTabletKeyboard /t REG_DWORD /d 0
 ```
 
-#### Disable Administrative Shares - Workstations:
+#### غیرفعال سازی Administrative Shares - Workstations:
 
 ```text
 C:\> reg add
@@ -546,7 +546,7 @@ HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\
 Parameters /f /v AutoShareWks /t REG_DWORD /d 0
 ```
 
-#### Disable Administrative Shares - Severs
+#### غیرفعال سازی Administrative Shares - Severs
 
 ```text
 C:\> reg add
@@ -554,7 +554,7 @@ HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\
 Parameters /f /v AutoShareServer /t REG_DWORD /d 0
 ```
 
-#### Remove Creation of Hashes Used to Pass the Hash Attack \(Requires password reset and reboot to purge old hashes\):
+#### حذف هش های مربوط به حمله Pass the Hash \(نیازمند راه اندازی مجدد و تغییر کلمه عبور برای هش های قدیمی\):
 
 ```text
 C:\> reg add
@@ -562,7 +562,7 @@ HKLM\SYSTEM\CurrentControlSet\Control\Lsa /f /v
 NoLMHash /t REG_DWORD /d 1
 ```
 
-#### To Disable Registry Editor: \(High Risk\)
+#### غیرفعال سازی ویرایش رجیستری: \(High Risk\)
 
 ```text
 C:\> reg add
@@ -571,7 +571,7 @@ ies\System /v DisableRegistryTools /t REG_DWORD /d 1
 /f
 ```
 
-#### Disable IE Password Cache:
+#### غیر فعال سازی IE Password Cache:
 
 ```text
 C:\> reg add
@@ -580,7 +580,7 @@ net Settings /v DisablePasswordCaching /t REG_DWORD
 /d 1 /f
 ```
 
-#### Disable CMD prompt:
+#### غیر فعال سازی CMD prompt:
 
 ```text
 C:\> reg add
@@ -588,7 +588,7 @@ HKCU\Software\Policies\Microsoft\Windows\System /v
 DisableCMD /t REG_DWORD /d 1 /f
 ```
 
-#### Disable Admin credentials cache on host when using RDP:
+#### غیر فعال سازی حافظه نهان احراز هویت Admin در میزبان با استفاده از rdp:
 
 ```text
 C:\> reg add
@@ -596,7 +596,7 @@ HKLM\System\CurrentControlSet\Control\Lsa /v
 DisableRestrictedAdmin /t REG_DWORD /d 0 /f
 ```
 
-#### Do not process the run once list:
+#### عدم پردازش فایل هایی که فقط یکبار اجرا شده اند:
 
 ```text
 C:\> reg add
@@ -610,7 +610,7 @@ ies\Explorer /v DisableLocalMachineRunOnce /t
 REG_DWORD /d 1
 ```
 
-#### Require User Access Control \(UAC\) Permission:
+#### نیاز مند دسترسی User Access Control \(UAC\):
 
 ```text
 C:\> reg add
@@ -618,7 +618,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Polic
 ies\System /v EnableLUA /t REG_DWORD /d 1 /f
 ```
 
-#### Require User Access Control \(UAC\) Permission:
+#### نیاز مند دسترسی User Access Control \(UAC\):
 
 ```text
 C:\> reg add
@@ -626,7 +626,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Polic
 ies\System /v EnableLUA /t REG_DWORD /d 1 /f
 ```
 
-#### Change password at next logon:
+#### تغییر کلمه عبور بعد از ورود مجدد:
 
 ```text
 PS C:\> Set-ADAccountPassword <USER> -NewPassword
@@ -634,24 +634,24 @@ $newpwd -Reset -PassThru I Set-ADuser -
 ChangePasswordAtLogon $True
 ```
 
-#### Change password at next logon for OU Group:
+#### کلمه عبور را در ورود بعدی برای گروه OU تغییر کند:
 
 ```text
 PS C:\> Get-ADuser -filter "department -eq '<OU GROUP>' -AND enabled -eq 'True'" | Set-ADuser - ChangePasswordAtLoggon $True
 ```
 
-#### Enabled Firewall logging:
+#### فعال سازی گزارش گیری در فایروال:
 
 ```text
 C:\> netsh firewall set logging droppedpackets
 connections = enable
 ```
 
-## LINUX
+## لینوکس
 
-### DISABLE/STOP SERVICES
+### غیر فعال و یا توقف سرویس ها
 
-#### Services information:
+#### اطلاعات سرویس ها:
 
 ```text
 # service --status-all
@@ -659,15 +659,15 @@ connections = enable
 # ps -aux
 ```
 
-#### Get a list of upstart jobs:
+#### نمایش لیست سرویس های راه انداز:
 
 ```text
 # initctl list
 ```
 
-#### Example of start, stop, restarting a service in 
+#### نمونه ای از شروع و توقف سرویس ها در ubuntu 
 
-#### Ubuntu:
+#### در Ubuntu:
 
 ```text
 # /etc/init,d/apache2 start
@@ -678,46 +678,46 @@ connections = enable
 # service mysql stop (stops only until reboot)
 ```
 
-#### List all Upstart services:
+#### لیست کلیه سرویس های راه انداز:
 
 ```text
 # ls /etc/init/*,conf
 ```
 
-#### Show if a program is managed by upstart and the process ID:
+#### بررسی وضیعت سرویس راه انداز:
 
 ```text
 # status ssh
 ```
 
-#### If not managed by upstart:
+#### بررسی وضیعت سرویس در صورتی که عضو راه انداز نباشد:
 
 ```text
 # update-rc.d apache2 disable
 # service apache2 stop
 ```
 
-### HOST SYSTEM FIREWALLS
+### فایروال میزبان
 
-### Export existing iptables firewall rules:
+### ذخیره سازی کلیه rule های موجود iptables:
 
 ```text
 # iptables-save > firewall.out
 ```
 
-#### Edit firewall rules and chains in firewall.out and save the file:
+#### ویرایش فایل حاوی rule ها:
 
 ```text
 # vi firewall.out
 ```
 
-#### Apply iptables:
+#### بارگذاری مجدد rule های iptables:
 
 ```text
 # iptables-restore < firewall.out
 ```
 
-#### Example iptables commands \(IP, IP Range, Port Blocks\):
+#### دستورات نمونه iptables شامل محدود نمودن ip و port ها:
 
 ```text
 # iptables -A INPUT -s 10.10.10.10 -j DROP
@@ -726,7 +726,7 @@ connections = enable
 # iptables -A INPUT -p tcp --dport ssh -j DROP
 ```
 
-#### Block all connections:
+#### مسدود نمودن تمامی ارتباطات:
 
 ```text
 # iptables-policy INPUT DROP
@@ -734,63 +734,63 @@ connections = enable
 # iptables-policy FORWARD DROP
 ```
 
-#### Log all denied iptables rules:
+#### گزارش گیری تمام rule های denied در iptables:
 
 ```text
 # iptables -I INPUT 5 -m limit --limit 5/min -j LOG
 --log-prefix "iptables denied: " --log-level 7
 ```
 
-#### Save all current iptables rules:
+#### ذخیره سازی تمام rule های iptables:
 
-**Ubuntu:**
+**در Ubuntu:**
 
 ```text
 # /etc/init.d/iptables save
 # /sbin/service iptables save
 ```
 
-**RedHat / CentOS:**
+**در RedHat یا CentOS:**
 
 ```text
 # /etc/init.d/iptables save
 # /sbin/iptables-save
 ```
 
-#### List all current iptables rules:
+#### لیست تمام rule های iptables:
 
 ```text
 # iptables -L
 ```
 
-#### Flush all current iptables rules:
+#### راه اندازی مجدد rule های iptables:
 
 ```text
 # iptables -F
 ```
 
-#### Start/Stop iptables service:
+####  شروع و متوقف نمودن گزارش گیری سرویس iptables:
 
 ```text
 # service iptables start
 # service iptables stop
 ```
 
-#### Start/Stop ufw service:
+#### شروع و متوقف نمودن گزارش گیری سرویس ufw:
 
 ```text
 # ufw enable
 # ufw disable
 ```
 
-#### Start/Stop ufw logging:
+#### شروع و متوقف نمودن گزارش گیری ufw:
 
 ```text
 # ufw logging on
 # ufw logging off
 ```
 
-#### Backup all current ufw rules:
+#### تهیه نسخه پشتیبان از rule های ufw:
 
 ```text
 # cp /lib/ufw/{user.rules,user6.rules} /<BACKUP
@@ -798,7 +798,7 @@ LOCATION>
 # cp /lib/ufw/{user.rules,user6.rules} ./
 ```
 
-#### Example uncomplicated firewall \(ufw\) Commands \(IP, IP range, Port blocks\):
+#### نمونه ای از دستورات فایروال(ufw) برای محدود نموده ip و port ها:
 
 ```text
 # ufw status verbose
@@ -810,9 +810,9 @@ LOCATION>
 port 443
 ```
 
-### PASSWORDS
+### کلمه عبور ها
 
-#### Change password:
+#### تغییر کلمه عبور:
 
 ```text
 $ passwd (For current user)
@@ -820,27 +820,27 @@ $ passwd bob (For user Bob)
 $ sudo su passwd (For root)
 ```
 
-### HOST FILE
+### فایل های میزبان
 
-#### Add new malicious domain to hosts file, and route to localhost:
+#### اضافه نمودن دامنه مخرب و هدایت آن به localhost:
 
 ```text
 # echo 127.0.0,1 <MALICIOUS DOMAIN> >> /etc/hosts
 ```
 
-#### Check if hosts file is working, by sending ping to 127.0.0.1:
+#### بررسی فایل های هاست با ارسال ping 127.0.0.1:
 
 ```text
 # ping -c 1 <MALICIOUS DOMAIN>
 ```
 
-#### Ubuntu/Debian DNS cache flush:
+#### راه اندازی مجدد DNS cache در ubuntu:
 
 ```text
 # /etc/init.d/dns-clean start
 ```
 
-#### Flush nscd DNS cache four ways:
+#### 4 راه برای راه اندازی مجدد DNS cache :
 
 ```text
 # /etc/init.d/nscd restart
@@ -849,15 +849,15 @@ $ sudo su passwd (For root)
 # nscd -i hosts
 ```
 
-#### Flush dnsmasq DNS cache:
+#### راه اندازی مجدد DNS cache:
 
 ```text
 # /etc/init.d/dnsmasq restart
 ```
 
-### WHITELIST
+### لیست سفید
 
-#### Use a Proxy Auto Config\(PAC\) file to create bad URL or IP List:
+#### ایجاد و استفاده از فایل Proxy Auto Config\(PAC\) برای url و ip های مشکوک:
 
 ```text
 function FindProxyForURL(url, host) {
@@ -873,9 +873,9 @@ return "DIRECT";
 }
 ```
 
-### IPSEC
+### دستور IPSEC
 
-#### Allow firewall to pass IPSEC traffic:
+#### اجازه به فایروال برای ترافیک IPSEC:
 
 ```text
 # iptables -A INPUT -p esp -j ACCEPT
@@ -886,9 +886,9 @@ return "DIRECT";
 
 #### Pass IPSEC traffic:
 
-**Step 1:** Install Racoon utility on  &lt;HOST1 IP ADDRESS&gt;
+**مرحله 1:** نصب Racoon utility در  &lt;IP ADDRESS میزبان 1&gt;
 
-and &lt;HOST2 IP ADDRESS&gt; to enable IPSEC tunnel in
+و &lt;IP ADDRESS میزبان 2&gt; برای فعال سازی تونل IPSEC در
 
 Ubuntu.
 
@@ -896,7 +896,7 @@ Ubuntu.
 # apt-get install racoon
 ```
 
-**Step 2:** Choose direct then edit /etc/ipsec­ tools.conf on &lt;HOST1 IP ADDRESS&gt; and &lt;HOST2 IP ADDRESS&gt; .
+**مرحله 2:** ویرایش /etc/ipsec­ tools.conf در &lt;IP ADDRESS میزبان 1&gt; and &lt;IP ADDRESS میزبان 2&gt; .
 
 ```text
 flush;
@@ -909,7 +909,7 @@ in ipsec
 esp/transport//require;
 ```
 
-**Step 3:** Edit /etc/racoon/racoon.conf on  &lt;HOST1 IP ADDRESS&gt; and &lt;HOST2 IP ADDRESS&gt;.
+**مرحله 3:** ویرایش /etc/racoon/racoon.conf در  &lt;IP ADDRESS میزبان 1&gt; و &lt;IP ADDRESS میزبان 2&gt;.
 
 ```text
 log notify;
@@ -934,32 +934,31 @@ compression_algorithm deflate;
 }
 ```
 
-**Step 4:** Add preshared key to both hosts.
+**مرحله 4:** اضافه نمودن preshared key به دو میزبان.
 
-#### On HOST1:
+#### در میزبان 1:
 
 ```text
 # echo <HOST2 IP ADDRESS> <PRESHARED PASSWORD>
 >>/etc/racoon/psk.txt
 ```
 
-#### On HOST2:
+#### در میزبان 2:
 
 ```text
 # echo <HOSTl IP ADDRESS> <PRESHARED PASSWORD>
 >>/etc/racoon/psk.txt
 ```
 
-**Step 5:** Restart service on both systems.
+**مرحله 5:** راه اندازی مجدد دو سیستم.
 
 ```text
 # service setkey restart
 ```
 
-#### Check security associations, configuration and polices:
+#### برنامه پیکربندی و قوانین :
 
 ```text
 # setkey -D
 # setkey -DP
 ```
-
