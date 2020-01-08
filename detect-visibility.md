@@ -1,75 +1,75 @@
-# Detect\(Visibility\)
+# قابلیت\(مشاهده\)
 
-## NETWORK MONITORING
+## نظارت بر شبکه
 
-### TCPDUMP
+### دستور TCPDUMP
 
-#### View ASCII \(-A\) or HEX \(-X\) traffic:
+#### نمایش ترافیک به ASCII \(-A\) یا HEX \(-X\):
 
 ```text
 # tcpdump -A
 #tcpdump -X
 ```
 
-#### View traffic with timestamps and don't convert addresses and be verbose:
+#### نمایش timestamps ترافیک ها و عدم تبدیل آدرس ها و کم صدا:
 
 ```text
 # tcpdump -tttt -n -vv
 ```
 
-#### Find top talkers after 1000 packets \(Potential DDoS\):
+#### شناسایی ارسال کننده ها بعد از دریافت 1000 بسته \(مشکوک حمله DDoS\):
 
 ```text
 # tcpdump -nn -c 1000 jawk '{print $3}' I cut -d. 
 -fl-4 I sort -n I uniq -c I sort -nr
 ```
 
-#### Capture traffic on any interface from a target host and specific port and output to a file:
+#### ضبط کلیه بسته های در و بدل شده در همه interface میزبان ها و پورت 80 و ذخیره آن ها در فایل:
 
 ```text
 # tcpdump -w <FILENAME>,pcap -i any dst <TARGET IP
 ADDRESS> and port 80
 ```
 
-#### View traffic only between two hosts:
+#### نمایش ترافیک بین دو میزبان:
 
 ```text
 # tcpdump host 10.0.0.1 && host 10.0.0.2
 ```
 
-#### View all traffic except from a net or a host:
+#### نمایش تمام ترافیک به غیر از محدوده شبکه و میزبان مشخص:
 
 ```text
 # tcpdump not net 10.10 && not host 192.168.1,2
 ```
 
-#### View host and either of two other hosts:
+#### نمایش ترافیک بین میزبان 1 و میزبان های دیگر:
 
 ```text
 #tcpdump host 10,10,10.10 && \(10,10.10.20 or
 10,10,10,30\)
 ```
 
-#### Save pcap file on rotating size:
+#### ذیخره فایل pcap در اندازه مشخص:
 
 ```text
 # tcpdump -n -s65535 -C 1000 -w '%host_%Y-%m­%d_%H:%M:%S.pcap'
 ```
 
-#### Save pcap file to a remote host:
+#### ذخیره فایل pcap file در سیستم دیگر:
 
 ```text
 # tcpdump -w - I ssh <REMOTE HOST ADDRESS> -p 50005
 "cat - > /tmp/remotecapture.pcap"
 ```
 
-#### Grab traffic that contains the word pass:
+#### بررسی و جست و جو ترافیک ها برای کلمه pass:
 
 ```text
 # tcpdump -n -A -s0 I grep pass
 ```
 
-#### Grab many clear text protocol passwords:
+#### بررسی و جست و جو ترافیک ها برای پروتکل های clear text:
 
 ```text
 # tcpdump -n -A -s0 port http or port ftp or port
@@ -79,25 +79,25 @@ asswd=lpassword=lpass: I user: lusername: I password: I log
 in: I pass I user ' --color=auto --line-buffered -B20
 ```
 
-#### Get throughput:
+#### بررسی توان یا throughput:
 
 ```text
 # tcpdump -w - lpv -bert >/dev/null
 ```
 
-#### Filter out ipv6 traffic:
+#### فیلتر ترافیک ipv6:
 
 ```text
 # tcpdump not ip6
 ```
 
-#### Filer out ipv4 traffic:
+#### فیلتر ترافیک ipv4:
 
 ```text
 # tcpdump ip6
 ```
 
-#### Script to capture multiple interface tcpdumps to files rotating every hour:
+#### اسکریپت ذخیره سازی ترافیک چندین interface در فایل به صورت زمان دار:
 
 ```text
 #!/bin/bash
@@ -105,7 +105,7 @@ tcpdump -pni any -s65535 -G 3600 -w any%Y-%m­
 %d_%H:%M:%S.pcap
 ```
 
-#### Script to move multiple tcpdump files to alternate location:
+#### اسکریپت انتقال فایل های ترافیک tcpdump به محل های دیگر:
 
 ```text
 #!/bin/bash
@@ -117,7 +117,7 @@ DIRECTORY/.
 done
 ```
 
-#### Look for suspicious and self-signed SSL certificates:
+#### جست و جو گراهینامه self-signed و مشکوک:
 
 ```text
 # tcpdump -s 1500 -A '(tcp[((tcp[12:1] & 0xf0) >>
@@ -125,7 +125,7 @@ done
 2) : 1] : 0x16)'
 ```
 
-#### Get SSL Certificate:
+#### نمایش گواهینامه SSL:
 
 ```text
 # openssl s_client -connect <URL>:443
@@ -134,7 +134,7 @@ done
 CERTIFICATE-Ip' > <CERT>.pem
 ```
 
-#### Examine and verify the certificate and check for Self-Signed:
+#### بررسی گواهینامه های Self-Signed:
 
 ```text
 # openssl x509 -text -in <CERT>.pem
@@ -145,7 +145,7 @@ subject -startdate -enddate -fingerprint
 # openssl verify <CERT>.pem
 ```
 
-#### Extract Certificate Server Name:
+#### اسختراج نام سرور در گواهینامه ها:
 
 ```text
 # tshark -nr <PCAP FILE NAME> -Y
@@ -153,7 +153,7 @@ subject -startdate -enddate -fingerprint
 Name:" I sort I uniq -c I sort -r
 ```
 
-#### Extract Certificate info for analysis:
+#### اسختراج اطلاعات درباره گواهینامه:
 
 ```text
 # ssldump -Nr <FILE NAME>.pcap I awk 'BEGIN {c=0;}
@@ -162,7 +162,7 @@ Name:" I sort I uniq -c I sort -r
 ($0 !�/ A +/) {c=0;} if (c==l) print $0; }'
 ```
 
-#### Which application using port :
+#### بررسی وضیعت برنامه های و استفاده هر کدام از پورت ها :
 
 ```text
 netstat -aon | findstr '[port_number]'
@@ -171,112 +171,112 @@ tasklist | findstr '[application_name]'
 netstat -aon | findstr '[PID]'
 ```
 
-### TSHARK
+### دستور TSHARK
 
-#### Get list of network interfaces:
+#### دریافت interface های شبکه:
 
 ```text
 > tshark -D
 ```
 
-#### Listen on multiple network interfaces:
+#### بررسی چندین interface شبکه:
 
 ```text
 > tshark -i ethl -i eth2 -i eth3
 ```
 
-#### Save to pcap and disable name resolution:
+#### ذخیره pcap و غیرفعال سازی name resolution:
 
 ```text
 > tshark -nn -w <FILE NAME>,pcap
 ```
 
-#### Get absolute date and time stamp:
+#### نمایش تاریخ و  timestamp:
 
 ```text
 > tshark -t a
 ```
 
-#### Get arp or icmp traffic:
+#### دریافت ترافیک arp یا icmp:
 
 ```text
 > tshark arp or icmp
 ```
 
-#### Capture traffic between to \[hosts\] and/or \[nets\]:
+#### ذخیره ترافیک بین \[میزبان ها\]  و یا \[شبکه ها\]:
 
 ```text
 > tshark "host <HOST l> && host <HOST 2>"
 > tshark -n "net <NET 1> && net <NET 2>"
 ```
 
-#### Filter just host and IPs \(or not your IP\):
+#### فیلتر هاست ها و ip ها \(یا به غیر از ip شما\):
 
 ```text
 > tshark -r <FILE NAME>,pcap -q -z hosts,ipv4
 > tshark not host <YOUR IP ADDRESS>
 ```
 
-#### Not ARP and not UDP:
+#### به غیر از ARP و UDP:
 
 ```text
 > tshark not arp and not (udp.port -- 53)
 ```
 
-#### Replay a pcap file:
+#### Replay های یک فایل pcap:
 
 ```text
 > tshark -r <FILE NAME>.pcap
 ```
 
-#### Replay a pcap and just grab hosts and IPs:
+#### Replay های یک فایل pcap و استخراج میزبان ها و ip ها:
 
 ```text
 > tshark -r <FILE NAME>.pcap -q -z hosts
 ```
 
-#### Setup a capture session\(duration=60sec\):
+#### آماده سازی ذخیره ترافیک\(در مدت 60 ثانیه\):
 
 ```text
 > tshark -n -a files:10 -a filesize:100 -a
 duration:60 -w <FILE NAME>,pcap
 ```
 
-Grab src/dst IPs only:
+#### دریفات ip های منبع و مقصد:
 
 ```text
 > tshark -n -e ip.src -e ip.dst -T fields -E
 separator=, -Rip
 ```
 
-#### Grab IP of src DNS and DNS query:
+#### دریافت ip مربوط به منبع dns و query های آن:
 
 ```text
 > tshark -n -e ip.src -e dns,qry.name -E
 separator=';' -T fields port 53
 ```
 
-#### Grab HTTP URL host and request:
+#### دریافت url های و درخواست http میزبان:
 
 ```text
 > tshark -R http.request -T fields -E separator=';'
 -e http.host -e http.request.uri
 ```
 
-#### Grab just HTTP host requests:
+#### دریافت های و درخواست http میزبان:
 
 ```text
 > tshark -n -R http.request -T fields -e http.host
 ```
 
-#### Grab top talkers by IP dst:
+#### بیشترین ارسال های به ip مقصد:
 
 ```text
 > tshark -n -c 150 I awk '{print $4}' I sort -n I
 uniq -c I sort -nr
 ```
 
-#### Grab top stats of protocols:
+#### آمار مربوط به پروتکل ها:
 
 ```text
 > tshark -q -z io,phs -r <FILE NAME>.pcap
@@ -292,39 +292,39 @@ fields I grep exe
 fields port 80 I sort I uniq -c I sort -r
 ```
 
-### SNORT
+### دستور SNORT
 
-#### Run test on snort config file:
+#### اجرای تست بر روی فایل تنظیمات snort:
 
 ```text
 # snort -T -c /<PATH TO SNORT>/snort/snort.conf
 ```
 
-#### Use snort\(v=verbose,d=dump packet payload\):
+#### روش استفاده از snort\(v=جزییات,d=دریافت payload های بسته\):
 
 ```text
 # snort -dv -r <LOG FILE NAME>, log
 ```
 
-#### Replay a log file and match icmp traffic:
+#### پاسخ به فایل گزارشات و بررسی با ترافیک icmp:
 
 ```text
 # snort -dvr packet.log icmp
 ```
 
-#### Logs in ASCII:
+#### گزارشات به صورت ASCII:
 
 ```text
 # snort -K ascii -l <LOG DIRECTORY>
 ```
 
-#### Logs in binary:
+#### گزارشات به صورت binary:
 
 ```text
 snort -l <LOG DIRECTORY>
 ```
 
-#### Sent events to console:
+#### ارسال event به console:
 
 ```text
 # snort -q -A console -i eth0 -c
@@ -332,19 +332,19 @@ snort -l <LOG DIRECTORY>
 # snort -c snort.conf -l /tmp/so/console -A console
 ```
 
-#### Create a single snort rule and save:
+#### ایجاد یک rule برای snort و ذخیره سازی آن:
 
 ```text
 # echo alert any any <SNORT RULE> > one.rule
 ```
 
-#### Test single rule:
+#### بررسی و تست یک rule:
 
 ```text
 # snort -T -c one.rule
 ```
 
-#### Run single rule and output to console and logs dir:
+#### بررسی و تست یک rule و نتیجه آن در console ور مسیر گزارشات:
 
 ```text
 # mkdir ,/logs
@@ -352,42 +352,42 @@ snort -l <LOG DIRECTORY>
 console -l logs
 ```
 
-## NETWORK CAPTURE \(PCAP\) TOOLS
+## ابزار های بررسی ترافیک های شبکه یا فایل های PCAP
 
-### EDITCAP
+### ابزار EDITCAP
 
-#### Use to edit a pcap file \(split into 1000 packets\):
+#### ویرایش فایل های pcap \(جداسازی 1000 بسته\):
 
 ```text
 > editcap -F pcap -c 1000 orignal.pcap
 out_split,pcap
 ```
 
-#### Use to edit a pcap file \(split into 1 hour each packets\):
+#### ویرایش فایل های pcap \(جداسازی بسته ها در هر ساعت\):
 
 ```text
 > editcap -F pcap -t+3600 orignal.pcap
 out_split.pcap
 ```
 
-### MERGECAP
+### ابزار MERGECAP
 
-#### Use to merge multiple pcap files:
+#### برای ادغام چندین فایل pcap:
 
 ```text
 > mergecap -w merged_cap.pcap capl.pcap cap2.pcap
 cap3.pcap
 ```
 
-## HONEY TECHNIQUES
+## تکنیک HONEY
 
-### WINDOWS
+### ویندوز
 
-#### Honey Ports Windows:
+#### Honey Port ها در ویندوز:
 
-Ref. [http://securityweekly.com/wp­](http://securityweekly.com/wp­) content/uploads/2013/06/howtogetabetterpentest.pdf
+منبع. [http://securityweekly.com/wp­](http://securityweekly.com/wp­) content/uploads/2013/06/howtogetabetterpentest.pdf
 
-**Step 1:** Create new TCP Firewall Block rule on anything connecting on port 3333:
+**Step 1:** ایجاد rule در فایروال برای شناسایی و عدم اجازه به کلیه ارتباطات پورت 3333
 
 ```text
 C:\> echo @echo off for /L %%i in (1,1,1) do @for /f
@@ -398,17 +398,17 @@ RULE" dir=in remoteip=%%k localport=any protocol=TCP
 action=block >> <BATCH FILE NAME>.bat
 ```
 
-**Step 2:** Run Batch Script
+**Step 2:** اجرای اسکریپت batch
 
 ```text
 C:\> <BATCH FILE NAME>,bat
 ```
 
-#### Windows Honey Ports PowerShell Script:
+#### Honey Ports اسکریپت در powershell
 
 Ref. [https://github.com/Pwdrkeg/honeyport/blob/master/hon](https://github.com/Pwdrkeg/honeyport/blob/master/hon) eyport.psl
 
-**Step 1:** Download PowerShell Script
+**Step 1:** دریافت اسکریپت powershell
 
 ```text
 C: \> "%ProgramFiles%\Internet Exp lo rer\iexplo re. exe"
@@ -416,17 +416,17 @@ https://github.com/Pwdrkeg/honeyport/blob/master/hon
 eyport.psl
 ```
 
-**Step 2:** Run PowerShell Script
+**Step 2:** اجرای اسکریپت powershell
 
 ```text
 C:\> honeyport.psl
 ```
 
-#### Honey Hashes for Windows \(Also for Detecting Mimikatz Use\) :
+#### Honey Hashe ها برای ویندوز \(همچنین روش شناسایی Mimikatz\) :
 
-Ref. [https://isc.sans.edu/forums/diary/Detecting+Mimikatz](https://isc.sans.edu/forums/diary/Detecting+Mimikatz) +Use+On+Your+Network/19311/
+منبع. [https://isc.sans.edu/forums/diary/Detecting+Mimikatz](https://isc.sans.edu/forums/diary/Detecting+Mimikatz) +Use+On+Your+Network/19311/
 
-**Step 1:** Create Fake Honey Hash. Note enter a fake password and keep command prompts open to keep password in memory
+**Step 1:** ایجاد یک Honey Hash تقلبی. از کلمه عبور تقلبی استفاده کنید و cmd را باز نگهدارید
 
 ```text
 C:\> runas
@@ -434,7 +434,7 @@ C:\> runas
 /netonly cmd.exe
 ```
 
-**Step 2:** Query for Remote Access Attempts
+**Step 2:** جست و جو برای تلاش از راه دور
 
 ```text
 C:\> wevtutil qe System /q:"*[System
@@ -442,7 +442,7 @@ C:\> wevtutil qe System /q:"*[System
 /r:remotecomputername
 ```
 
-**Step 3:** Query for Failed Login Attempts
+**Step 3:** جست و جو برای تلاش های ورود
 
 ```text
 C:\> wevtutil qe Security /q:"*[System[(EventID=4624
@@ -450,20 +450,20 @@ or EventID=4625)]]" /f:text /rd:true /c:5
 /r:remotecomputername
 ```
 
-**Step 4:** \(Optional\) Run queries in infinite loop with 30s pause
+**Step 4:** \(اختیاری\) با استفاده از مکث 30 ثانیه ای نمایش داده شود
 
 ```text
 C:\> for /L %i in (1,0,2) do (Insert Step 2) &
 (Insert Step 3) & timeout 30
 ```
 
-### LINUX
+### لینوکس
 
-#### Honey Ports Linux:
+#### Honey Port ها در لینوکس:
 
-Ref. [http://securityweekly.com/wp­](http://securityweekly.com/wp­) content/uploads/2013/06/howtogetabetterpentest.pdf
+منبع. [http://securityweekly.com/wp­](http://securityweekly.com/wp­) content/uploads/2013/06/howtogetabetterpentest.pdf
 
-**Step 1:** Run a while loop to create TCP Firewall rules to block any hosts connecting on port 2222
+**Step 1:** ایجاد یک حلقه برای رد کلیه درخواست های به پورت 2222
 
 ```text
 # while [ 1 ] ; echo "started" ; do IP='nc -v -l -p
@@ -472,11 +472,11 @@ cut -d] -f 1'; iptables -A INPUT -p tcp -s ${IP} -j
 DROP ; done
 ```
 
-#### Linux Honey Ports Python Script:
+#### اسکریپت Honey Port در لینوکس :
 
-Ref. [https://github.com/gchetrick/honeyports/blob/master/](https://github.com/gchetrick/honeyports/blob/master/) honeyports-0.5.py
+منبع. [https://github.com/gchetrick/honeyports/blob/master/](https://github.com/gchetrick/honeyports/blob/master/) honeyports-0.5.py
 
-**Step 1:** Download Python Script
+**Step 1:** دریافت اسکریپت پایتون
 
 ```text
 # wget
@@ -484,23 +484,23 @@ https://github.com/gchetrick/honeyports/blob/master/
 honeyports-0.5.py
 ```
 
-**Step 2:** Run Python Script
+**Step 2:** اجرای اسکریپت پایتون
 
 ```text
 # python honeyports-0.5.py -p <CHOOSE AN OPEN PORT>
 -h <HOST IP ADDRESS>
 ```
 
-#### Detect rogue scanning with Labrea Tarpit:
+#### شناسایی rogue scanning با استفاده از Labrea Tarpit:
 
 ```text
 # apt-get install labrea
 # labrea -z -s -o -b -v -i eth0 2>&1 | tee -a log.txt
 ```
 
-### NETCAT
+### ابزار NETCAT
 
-#### Use netcat to listen for scanning threats:
+#### استفاده از netcat برای شناسایی اسکن های تهدید آمیز:
 
 ```text
 > nc -v -k -l 80
@@ -508,9 +508,9 @@ honeyports-0.5.py
 > nc -v -k -l 3389
 ```
 
-### PASSIVE DNS MONITORING
+### نظارت بر PASSIVE DNS
 
-#### Use dnstop to monitor DNS requests at any sniffer location:
+#### استفاده از  dnstop برای نظارت بر درخواست های DNS در هر موقعیتی:
 
 ```text
 # apt-get update
@@ -518,20 +518,20 @@ honeyports-0.5.py
 # dnstop -l 3 <INTERFACE NAME>
 ```
 
-**Step 1:** Hit 2 key to show query names
+**مرحله 1:** کلید 2 را فشار دهید تا نام ها نمایش داده شود
 
-#### Use dnstop to monitor DNS requests from a pcap file:
+#### استفاده از dnstop  برای نظارت بر درخواست های dns داخل فایل pcap:
 
 ```text
 # dnstop -l 3 <PCAP FILE NAME> I <OUTPUT FILE
 NAME>,txt
 ```
 
-## LOG AUDITING
+## روش های LOG AUDITING
 
-### WINDOWS
+### ویندوز
 
-#### Increase Log size to support increased auditing:
+#### افزایش اندازه Log به منظور ارتقا auditing:
 
 ```text
 C:\> reg add
@@ -545,26 +545,26 @@ HKLM\Software\Policies\Microsoft\Windows\EventLog\Sy
 stem /v MaxSize /t REG_DWORD /d 0x19000
 ```
 
-#### Check settings of Security log:
+#### بررسی تنظیمات Security log:
 
 ```text
 C:\> wevtutil gl Security
 ```
 
-#### Check settings of audit policies:
+#### برای تنظیمات audit policies:
 
 ```text
 C:\> auditpol /get /category:*
 ```
 
-#### Set Log Auditing on for Success and/or Failure on All Categories:
+#### تنظیم Log Auditing موفق و یا ناموفق در تمامی دسته بندی ها:
 
 ```text
 C:\> auditpol /set /category:* /success:enable
 /failure:enable
 ```
 
-#### Set Log Auditing on for Success and/or Failure on Subcategories:
+#### تنظیم Log Auditing موفق و یا ناموفق در تمامی زیر دسته ها:
 
 ```text
 C: \> auditpol /set /subcategory: "Detailed File
@@ -668,26 +668,26 @@ C:\> auditpol /set /subcategory:"Credential
 Validation" /success:enable /failure:enable
 ```
 
-#### Check for list of available logs, size, retention limit:
+#### لیست گزارشات موجود و اندازه و مجاز:
 
 ```text
 PS C:\> Get-Eventlog -list
 ```
 
-#### Partial list of Key Security Log Auditing events to monitor:
+#### لیست جزئی از کلید های نظارت بر Security Log Auditing events :
 
 ```text
 PS C:\> Get-Eventlog -newest 5 -logname application
 I Format-List
 ```
 
-#### Show log from remote system:
+#### نمایش گزارشات به صورت از راه دور:
 
 ```text
 PS C:\> Show-Eventlog -computername <SERVER NAME>
 ```
 
-#### Get a specific list of events based on Event ID:
+#### نمایش لیست event ها بر اساس Event ID:
 
 ```text
 PS C:\> Get-Eventlog Security I ? { $_.Eventid -eq
@@ -696,7 +696,7 @@ PS C:\> Get-WinEvent -FilterHashtable
 @{LogName="Secu rity"; ID=4774}
 ```
 
-#### Account Logon - Audit Credential Validation Last 14 Days:
+#### ورود به حساب - Audit Credential Validation برای 14 روز اخیر:
 
 ```text
 PS C:\> Get-Eventlog Security
@@ -705,8 +705,8 @@ PS C:\> Get-Eventlog Security
 14))
 ```
 
-#### Account - Logon/Logoff:
-
+#### حساب - ورود و خروج:
+ا
 ```text
 PS C:\> Get-Eventlog Security
 4625,4634,4647,4624,4625,4648,4675,6272,6273,6274,62
@@ -715,7 +715,7 @@ PS C:\> Get-Eventlog Security
 date).addDays(-1))
 ```
 
-#### Account Management - Audit Application Group Management:
+#### مدیریت حساب - مدیریت گروه برنامه های Audit:
 
 ```text
 PS C:\> Get-Eventlog Security
@@ -728,7 +728,7 @@ PS C:\> Get-Eventlog Security
 date).addDays(-1))
 ```
 
-#### Detailed Tracking - Audit DPAPI Activity, Process Termination, RPC Events:
+#### ردیابی دقیق - Audit DPAPI Activity, Process Termination, RPC Events:
 
 ```text
 PS C:\> Get-EventLog Security
@@ -736,7 +736,7 @@ PS C:\> Get-EventLog Security
 date).addDays(-1))
 ```
 
-#### Domain Service Access - Audit Directory Service Access:
+#### دسترسی به سرویس دامین - Audit دسترسی به سرویس دایرکتوری:
 
 ```text
 PS C:\> Get-EventLog Security
@@ -744,7 +744,7 @@ PS C:\> Get-EventLog Security
 date).addDays(-1))
 ```
 
-#### Object Access - Audit File Share, File System, SAM, Registry, Certifications:
+#### دسترسی به object - Audit اشتراک فایل, فایل سیستم, SAM, رجیستری, گواهینامه ها:
 
 ```text
 PS C:\> Get-EventLog Security
@@ -757,7 +757,7 @@ PS C:\> Get-EventLog Security
 57,5158,5159 -after ((get-date).addDays(-1))
 ```
 
-#### Policy Change - Audit Policy Change, Microsoft Protection Service, Windows Filtering Platform:
+#### Policy تغییر - Audit Policy تغییر, Microsoft Protection سرویس, Windows Filtering Platform:
 
 ```text
 PS C:\> Get-EventLog Security
@@ -768,14 +768,14 @@ PS C:\> Get-EventLog Security
 9,5450,4670 -after ((get-date).addDays(-1))
 ```
 
-#### Privilege Use - Audit Non-Sensitive/Sensitive Privilege Use:
+#### Privilege استفاده - Audit مربوط به privilage استفاده از سرویس های حساس و غیرحساس:
 
 ```text
 PS C:\> Get-EventLog Security 4672,4673,4674 -after
 ((get-date),addDays(-1))
 ```
 
-#### System - Audit Security State Change, Security System Extension, System Integrity, System Events:
+#### سیستم - Audit Security تغییر وضیعت, Security System پسوند, System تمامیت, System Events:
 
 ```text
 PS C:\> Get-Eventlog Security
@@ -786,20 +786,20 @@ PS C:\> Get-Eventlog Security
 61,5062,6281 -after ((get-date).addDays(-1))
 ```
 
-#### Add Microsoft IIS cmdlet:
+#### اضافه نمودن ماژول Microsoft IIS:
 
 ```text
 PS C:\> add-pssnapin WebAdministration
 PS C:\> Import-Module WebAdministration
 ```
 
-#### Get IIS Website info:
+#### دریافت اطلاعات درباره IIS:
 
 ```text
 PS C:\> Get-IISSite
 ```
 
-#### Get IIS Log Path Location:
+#### دریافت اطلاعات مسیر IIS:
 
 ```text
 PS C:\> (Get-WebConfigurationProperty
@@ -807,14 +807,14 @@ PS C:\> (Get-WebConfigurationProperty
 'logfile.directory').Value
 ```
 
-#### Set variable for IIS Log Path \(default path\):
+#### تنظیم متغییر برای مسیر گزارش IIS \(مسیر پیشفرض\):
 
 ```text
 PS C:\> $LogDirPath =
 "C:\inetpub\logs\LogFiles\W3SVCl"
 ```
 
-#### Get IIS HTTP log file list from Last 7 days:
+#### دریافت فایل گزارشات 7 روز اخیر IIS:
 
 ```text
 PS C:\> Get-Child!tem -Path
@@ -822,7 +822,7 @@ C:\inetpub\logs\LogFiles\w3svcl -recurse I Where­
 Object {$_. lastwritetime -lt (get-date).addDays(-7)}
 ```
 
-#### View IIS Logs \(Using $LogDirPath variable set above\):
+#### نمایش فایل گزارشات IIS \(استفاده از متغیر $LogDirPath\):
 
 ```text
 PS C:\> Get-Content $LogDirPath\*, log I%{$_ -replace
@@ -830,7 +830,7 @@ PS C:\> Get-Content $LogDirPath\*, log I%{$_ -replace
 ConvertFrom-Csv -Delimiter ' '
 ```
 
-#### View IIS Logs:
+#### نمایش گزاراشت IIS:
 
 ```text
 PS C:\> Get-Content <!IS LOG FILE NAME>, log I%{$_ -
@@ -838,14 +838,14 @@ replace '#Fields: ', ''} 17{$_ -notmatch 'A#'} I
 ConvertFrom-Csv -Delimiter ' '
 ```
 
-#### Find in IIS logs IP address 192.168._·_ pattern:
+#### جست و جو در فایل گزارشات IIS به شکل  IP address 192.168._·_:
 
 ```text
 PS C:\> Select-String -Path $LogDirPath\*, log -
 Pattern '192,168,*,*'
 ```
 
-#### Find in IIS logs common SQL injection patterns:
+#### جست و جو در فایل گزارشات IIS برای پیدا نمودن حمله SQL injection:
 
 ```text
 PS C:\> Select-String -Path $LogDirPath\*, log
@@ -855,72 +855,72 @@ databases) I ( \ (select) I (convert\ () I ( Connect\ () I ( count
 \() I (sys objects)'
 ```
 
-### LINUX
+### لینوکس
 
-#### Authentication logs in Ubuntu:
+#### گزراشت احراز هویت در Ubuntu:
 
 ```text
 # tail /var/log/auth. log
 # grep -i "fail" /var/log/auth. log
 ```
 
-#### User login logs in Ubuntu:
+#### نمایش گزارشات ورود در Ubuntu:
 
 ```text
 # tail /var/
 ```
 
-#### Look at samba activity:
+#### نمایش گزارشات samba:
 
 ```text
 # grep -i samba /var/log/syslog
 ```
 
-#### Look at cron activity:
+#### نمایش فعالیت های cron:
 
 ```text
 # grep -i cron /var/log/syslog
 ```
 
-#### Look at sudo activity:
+#### نمایش فعالیت های sudo:
 
 ```text
 # grep -i sudo /var/log/auth. log
 ```
 
-#### Look in Apache Logs for 404 errors:
+#### نمایش گزارشات Apache برای خطاهای 404:
 
 ```text
 # grep 404 <LOG FILE NAME> I grep -v -E
 "favicon. ico I robots. txt"
 ```
 
-#### Look at Apache Logs for files requested:
+#### نمایش گزارشات Apache برای درخواست فایل ها:
 
 ```text
 # head access_log I awk '{print $7}'
 ```
 
-#### Monitor for new created files every 5min:
+#### نظارت بر فایل های ایجاد شده در هر 5 دقیقه:
 
 ```text
 # watch -n 300 -d ls -lR /<WEB DIRECTORY>
 ```
 
-#### Look where traffic is coming from:
+#### نمایش ترافیک های از سمت:
 
 ```text
 # cat <LOG FILE NAME> I fgrep -v <YOUR DOMAIN> I cut
 -d\" -f4 I grep -v ""-
 ```
 
-#### Monitor for TCP connections every 5 seconds:
+#### نظارت بر ارتباطات TCP هر 5 ثانیه:
 
 ```text
 # netstat -ac 5 I grep tcp
 ```
 
-#### Install audit framework and review syscalls/events:
+#### نصب فریمورک audit و بررسی syscalls/events:
 
 ```text
 # apt-get install auditd
@@ -928,9 +928,8 @@ databases) I ( \ (select) I (convert\ () I ( Connect\ () I ( count
 # ausearch -m execve
 ```
 
-#### Get audit report summary:
+#### دریافت گزارشات audit:
 
 ```text
 # aureport
 ```
-
