@@ -1,74 +1,53 @@
-# Security Incident Identification\(Schema\)
+# شناسایی حوادث امنیتی
 
-## VOCABULARY FOR EVENTS RECORDING AND INCIDENT SHARING \(VERIS\)
+### عمومی
 
-### GENERAL
+منبع. [http://veriscommunity.net/](http://veriscommunity.net/)
 
-Ref. [http://veriscommunity.net/](http://veriscommunity.net/)
+#### شناسایی تهدید ها با استفاده از الگو ها:
 
-#### Use this template to identify threats uniformly:
+![](/assets/images/9.PNG)
 
-![](.gitbook/assets/9.PNG)
+![](/assets/images/10.PNG)
 
-![](.gitbook/assets/10.PNG)
+### actor
 
-### ACTOR
+![](/assets/images/11.PNG)
 
-![](.gitbook/assets/11.PNG)
+### action
 
-### ACTION
+![](/assets/images/12.PNG)
 
-![](.gitbook/assets/12.PNG)
+![](/assets/images/13.PNG)
 
-![](.gitbook/assets/13.PNG)
+![](/assets/images/14.PNG)
 
-![](.gitbook/assets/14.PNG)
+### asset
 
-### ASSET
+![](/assets/images/15.PNG)
 
-![](.gitbook/assets/15.PNG)
+#### attribute
 
-#### ATTRIBUTE
+![](/assets/images/16.PNG)
 
-![](.gitbook/assets/16.PNG)
-
-### COURSE OF ACTION
+### دوره اقدام 
 
 #### Structured Threat Information eXp 
 
-\(Adapted\)
+منبع. [https://stixproject.githu](https://stixproject.githu)b.io
 
-Ref. [https://stixproject.githu](https://stixproject.githu)b.io
-
-![](.gitbook/assets/17.PNG)
+![](/assets/images/17.PNG)
 
 ## KILL CHAIN MAPPING
 
-### GATHER DATA FOR MAPPING KILL CHAIN
+### لیست اطلاعات MAPPING KILL CHAIN
 
-Ref. [http://www.lockheedmartin.com/content/dam/lockheed/d](http://www.lockheedmartin.com/content/dam/lockheed/d) ata/corporate/documents/LM-White-Paper-Intel-DrivenDefense. pdf
+منبع. [http://www.lockheedmartin.com/content/dam/lockheed/d](http://www.lockheedmartin.com/content/dam/lockheed/d) ata/corporate/documents/LM-White-Paper-Intel-DrivenDefense. pdf
 
-![](.gitbook/assets/18.PNG)
+![](/assets/images/18.PNG)
 
-## PRI ORITIZED DEFENDED ASSET LIST \(PDAL\)
+## لیست PRI ORITIZED DEFENDED ASSET LIST \(PDAL\)
 
-### GATHER D ATA AND PRIORITIZE ASSETS TO DEFEND
+### لیست DATA AND PRIORITIZE ASSETS TO DEFEND
 
-![](.gitbook/assets/19.PNG)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](/assets/images/19.PNG)
