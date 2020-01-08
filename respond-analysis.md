@@ -1,8 +1,8 @@
-# Respond\(Analysis\)
+# تحلیل پاسخ ها
 
-## LIVE TRIAGE - WINDOWS
+## LIVE TRIAGE - ویندوز
 
-### SYSTEM INFORMATION
+### اطلاعات سیستم
 
 ```text
 C:\> echo %DATE% %TIME%
@@ -15,13 +15,13 @@ C:\> wmic bios get serialnumber
 C:\> wmic computersystem list brief
 ```
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psinfo.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psinfo.aspx
 
 ```text
 C:\> psinfo -accepteula -s -h -d
 ```
 
-### USER INFORMATION
+### اطلاعات کاربر
 
 ```text
 C:\> whoami
@@ -37,7 +37,7 @@ C:\> wmic netclient list brief
 C:\> doskey /history> history.txt
 ```
 
-### NETWORK INFORMATION
+### اطلاعات شبکه
 
 ```text
 C:\> netstat -e
@@ -62,7 +62,7 @@ C:\> wmic netuse get
 name,username,connectiontype, localname
 ```
 
-### SERVICE INFORMATION
+### اطلاعات سرویس ها
 
 ```text
 C:\> at
@@ -82,14 +82,14 @@ PS C:\> Get-Service I Where-Object { $_.Status -eq
 "running" }
 ```
 
-#### List of all processes and then all loaded modules:
+#### لیست تمام سرویس و ماژول ها:
 
 ```text
 PS C:\> Get-Process !select modules!Foreach­
 Object{$_.modules}
 ```
 
-### POLICY, PATCH AND SETTINGS INFORMATION
+### اطلاعات POLICY, PATCH و تنظیمات
 
 ```text
 C:\> set
@@ -99,7 +99,7 @@ C:\> gpresult /H report.html /F
 C:\> wmic qfe
 ```
 
-#### List GPO software installed:
+#### لیست نرم افزار های GPO نصب شده:
 
 ```text
 C:\> reg query
@@ -107,7 +107,7 @@ uHKLM\Software\Microsoft\Windows\Current
 Version\Group Policy\AppMgmt"
 ```
 
-### AUTORUN AND AUTOLOAD INFORMATION
+### اطلاعات AUTORUN و AUTOLOAD
 
 ```text
 Startup information:
@@ -115,7 +115,7 @@ C:\> wmic startup list full
 C:\> wmic ntdomain list brief
 ```
 
-#### View directory contents of startup folder:
+#### نمایش محتوای مسیر سرویس های راه انداز:
 
 ```text
 C:\> dir
@@ -142,16 +142,16 @@ C:\> type %windir%\wininit.ini
 C:\> type %windir%\win.ini
 ```
 
-#### View autoruns, hide Microsoft files:
+#### نمایش autorun ها و فایل های مخفی ماکروسافت:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb963902.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb963902.aspx
 
 ```text
 C:\> autorunsc -accepteula -m
 C:\> type C:\Autoexec.bat"
 ```
 
-#### Show all autorun files, export to csv and check with VirusTotal:
+#### نمایش تمامی فایل های autorun و ذخیره سازی آن ها در csv و بررسی آن توسط virustotal:
 
 ```text
 C:\> autorunsc.exe -accepteula -a -c -i -e -f -l -m
@@ -330,29 +330,29 @@ C:\> wevtutil epl Application C:\<BACK UP
 PATH>\mylogs.evtx
 ```
 
-#### Get list of logs remotely:
+#### لیست گزارشات از راه دور:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psloglist.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psloglist.aspx
 
 ```text
 C:\> psloglist \\<REMOTE COMPUTER> -accepteula -h 12
 -x
 ```
 
-#### Clear all logs and start a baseline log to monitor:
+#### پاک نمودن تمامی گزارشات تا نقطه baseline:
 
 ```text
 PS C:\> wevtutil el I Foreach-Object {wevtutil cl
 "$_"}
 ```
 
-#### List log filenames and path location:
+#### لیست نام و مسیر فایل های گزارشات:
 
 ```text
 C:\> wmic nteventlog get path,filename,writeable
 ```
 
-#### Take pre breach log export:
+#### عملیات pre breach log export:
 
 ```text
 PS C:\> wevtutil el I ForEach-Object{Get-Eventlog -
@@ -360,7 +360,7 @@ Log "$_" I Export-Csv -Path (:\<BASELINE LOG>,csv -
 Append}
 ```
 
-#### Take post breach log export:
+#### عملیات post breach log export:
 
 ```text
 PS C:\> wevtutil el I ForEach-Object{Get-EventLog -
@@ -368,7 +368,7 @@ Log"$_" I Export-Csv -Path C:\<POST BASELINE
 LOG>,CSV -Append}
 ```
 
-#### Compare two files baseline and post breach logs:
+#### مقایسه baseline دو فایل و post breach logs:
 
 ```text
 PS C:\> Compare-Object -ReferenceObject $(Get­
@@ -378,14 +378,14 @@ LOGS>.txt") -DifferenceObject $(Get-Content
 <DIFFERENCES LOG>.txt
 ```
 
-#### This deletes all logs:
+#### تمام گزارشات حذف شده:
 
 ```text
 PS C:\> wevtutil el I Foreach-Object {wevtutil cl
 "$_"}
 ```
 
-### FILES, DRIVES AND SHARES INFORMATION
+### اطلاعات پرونده ها و درایور ها و محیط های اشتراکی
 
 ```text
 C:\> net use \\<TARGET IP ADDRESS>
@@ -397,21 +397,21 @@ description,filesystem,name,size
 C:\> wmic share get name,path
 ```
 
-#### Find multiple file types or a file:
+#### جست و جو فایل های پسوند های مختلف و یا یک فایل:
 
 ```text
 C:\> dir /A /5 /T:A *,exe *,dll *,bat *·PS1 *,zip
 C:\> dir /A /5 /T:A <BAD FILE NAME>,exe
 ```
 
-#### Find executable \(.exe\) files newer than Jan 1, 2017:
+#### جست و جو فایل های اجرایی \(.exe\) که از تاریخ Jan 1, 2017 به بعد هستند:
 
 ```text
 C:\> forfiles /p C:\ /M *,exe /5 /0 +1/1/2017 /C
 "cmd /c echo @fdate @ftime @path"
 ```
 
-#### Find multiple files types using loop:
+#### جست و جو فایل های با پسوند های مختلف به صورت همیشگی:
 
 ```text
 C:\> for %G in (.exe, .dll, .bat, .ps) do forfiles -
@@ -419,64 +419,64 @@ p "C:" -m *%G -s -d +1/1/2017 -c "cmd /c echo @fdate
 @ftime @path"
 ```
 
-#### Search for files newer than date:
+#### جست و جو فایل های بر اساس تاریخ:
 
 ```text
 C:\> forfiles /PC:\ /5 /0 +1/01/2017 /C "cmd /c
 echo @path @fdate"
 ```
 
-#### Find large files: \(example &lt;20 MB\)
+#### جست و جو فایل ها بر اساس اندازه: \(برای مثال 20 مگابایت\)
 
 ```text
 C:\> forfiles /5 /M * /C "cmd /c if @fsize GEO
 2097152 echo @path @fsize"
 ```
 
-#### Find files with Alternate Data Streams:
+#### جست و جو فایل های Alternate Data Streams:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/streams.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/streams.aspx
 
 ```text
 C:\> streams -s <FILE OR DIRECTORY>
 ```
 
-#### Find files with bad signature into csv:
+#### جست و جو فایل های دارای امضا مشکوک و ذخیره آن در csv:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb897441.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb897441.aspx
 
 ```text
 C:\> sigcheck -c -h -s -u -nobanner <FILE OR
 DIRECTORY> > <OUTPUT FILENAME>,csv
 ```
 
-#### Find and show only unsigned files with bad signature in C:
+#### جست و جو و نمایش فایل های دارای امضا مشکوک در درایو C:\:
 
 ```text
 C:\> sigcheck -e -u -vr -s C:\
 ```
 
-#### List loaded unsigned Dlls:
+#### لیست Dll های unsigned که load شده اند:
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb896656.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/bb896656.aspx
 
 ```text
 C:\> listdlls.exe -u
 C:\> listdlls.exe -u <PROCESS NAME OR PID>
 ```
 
-#### Run Malware scan \(Windows Defender\) offline:
+#### اسکن Malware \(با استفاده از Windows Defender\) به صورت آفلاین:
 
-Ref. [http://windows.microsoft.com/en­](http://windows.microsoft.com/en­) us/windows/what-is-windows-defender-offline
+منبع. [http://windows.microsoft.com/en­](http://windows.microsoft.com/en­) us/windows/what-is-windows-defender-offline
 
 ```text
 C:\> MpCmdRun.exe -SignatureUpdate
 C:\> MpCmdRun.exe -Scan
 ```
 
-## LIVE TRIAGE - LINUX
+## LIVE TRIAGE - لینوکس
 
-### SYSTEM INFORMATION
+### اطلاعات سیستم
 
 ```text
 # uname -a
@@ -485,306 +485,306 @@ C:\> MpCmdRun.exe -Scan
 # mount
 ```
 
-### USER INFORMATION
+### اطلاعات کاربر
 
-#### View logged in users:
+#### لیست کاربرانی که ورود کرده اند:
 
 ```text
 # w
 ```
 
-#### Show if a user has ever logged in remotely:
+#### لیست کاربرانی که از راه دور ورود کرده اند:
 
 ```text
 # lastl og
 # last
 ```
 
-#### View failed logins:
+#### نمایش ورود های ناموفق:
 
 ```text
 # fail o
 g -a
 ```
 
-#### View local user accounts:
+#### نمایش کاربران محلی:
 
 ```text
 # cat /etc/passwd
 # cat /etc/shadow
 ```
 
-#### View local groups:
+#### نمایش گروه های محلی:
 
 ```text
 # cat/etc/group
 ```
 
-#### View sudo access:
+#### نمایش دسترسی sudo:
 
 ```text
 # cat /etc/sudoers
 ```
 
-#### View accounts with UID 0:
+#### نمایش کاربران با UID 0:
 
 ```text
 # awk -F: '($3 == "0") {p rint}' /etc/passw
 # egrep ':0+' /etc/passw
 ```
 
-#### View root authorized SSH key authentications:
+#### لیست کلید های احراز هویت معتبر ssh:
 
 ```text
 # cat /root/.ssh/authorized_keys
 ```
 
-#### List of files opened by user:
+#### لیست فایل هایی که توسط کاربر باز شده است:
 
 ```text
 # lsof -u <USER NAME>
 ```
 
-#### View the root user bash history:
+#### نمایش تاریخچه bash:
 
 ```text
 # cat /root/,bash_history
 ```
 
-### NETWORK INFORMATION
+### اطلاعات شبکه
 
-#### View network interfaces:
+#### نمایش interface های شبکه:
 
 ```text
 # ifconfig
 ```
 
-#### View network connections:
+#### نمایش ارتباطات شبکه:
 
 ```text
 # netstat -antup
 # netstat -plantux
 ```
 
-#### View listening ports:
+#### نمایش پورت های listening:
 
 ```text
 # netstat -nap
 ```
 
-#### View routes:
+#### نمایش route ها:
 
 ```text
 # route
 ```
 
-#### View arp table:
+#### نمایش جدول arp:
 
 ```text
 # arp -a
 ```
 
-#### List of processes listening on ports:
+#### نمایش لیست فرآیند ها و پورت های مورد استفاده:
 
 ```text
 # lsof -i
 ```
 
-### SERVICE INFORMATION
+### اطلاعات سرویس ها
 
-#### View processes:
+#### لیست فرآیند ها:
 
 ```text
 # ps -aux
 ```
 
-#### List of load modules:
+#### لیست ماژول های بارگذاری شده:
 
 ```text
 # lsmod
 ```
 
-#### List of open files:
+#### لیست فایل های باز شده:
 
 ```text
 # lsof
 ```
 
-#### List of open files, using the network:
+#### لیست فایل های باز شده تحت شبکه:
 
 ```text
 # lsof -nPi I cut -f 1 -d " "I uniq I tail -n +2
 ```
 
-#### List of open files on specific process:
+#### لیست فایل های باز شده توسط یک فرآیند خاص:
 
 ```text
 # lsof -c <SERVICE NAME>
 ```
 
-#### Get all open files of a specific process ID:
+#### لیست کلیه فایل های باز شده توسط یک فرآیند خاص:
 
 ```text
 # lsof -p <PID>
 ```
 
-#### List of unlinked processes running:
+#### لیست کلید فرآیند های unlinked در حال اجرا:
 
 ```text
 # lsof +Ll
 ```
 
-#### Get path of suspicious process PID:
+#### لیست فرآیند های یک PID:
 
 ```text
 #ls -al /proc/<PID>/exe
 ```
 
-#### Save file for further malware binary analysis:
+#### ذخیره سازی تحلیل های فایل های اجرایی malware ها:
 
 ```text
 # cp /proc/<PID>/exe >/<SUSPICIOUS FILE NAME TO
 SAVE>,elf
 ```
 
-#### Monitor logs in real-time:
+#### نمایش گزارشات به صورت زنده:
 
 ```text
 # less +F /var/log/messages
 ```
 
-#### List services:
+#### لیست سرویس ها:
 
 ```text
 # chkconfig --list
 ```
 
-### POLICY, PATCH AND SETTINGS INFORMATION
+### اطلاعات POLICY, PATCH و تنظیمات
 
-#### View pam.d files:
+#### نمایش فایل های درون مسیر pam.d:
 
 ```text
 # cat /etc/pam.d/common*
 ```
 
-### AUTORUN AND AUTOLOAD INFORMATION:
+### اطلاعات AUTORUN و AUTOLOAD:
 
-#### List cron jobs:
+#### لیست cron job ها:
 
 ```text
 # crontab -l
 ```
 
-#### List cron jobs by root and other UID 0 accounts:
+#### لیست cron job ها که توسط کاربر root و UID صفر است:
 
 ```text
 # crontab -u root -l
 ```
 
-#### Review for unusual cron jobs:
+#### بررسی cron job ها غیر معمول:
 
 ```text
 # cat /etc/crontab
 # ls /etc/cron,*
 ```
 
-### LOGS
+### گزارشات
 
-#### View root user command history:
+#### بررسی تاریخچه دستور های اجرا شده کاربر root:
 
 ```text
 # cat /root/,*history
 ```
 
-#### View last logins:
+#### بررسی آخرین کاربر وارد شده به سیستم:
 
 ```text
 # last
 ```
 
-### FILES, DRIVES AND SHARES INFORMATION
+### اطلاعات فایل ها و درایور ها و محیط های اشتراکی
 
-#### View disk space:
+#### نمایش میزان استفاده از دیسک:
 
 ```text
 # df -ah
 ```
 
-#### View directory listing for /etc/init.d:
+#### نمایش فایل های مسیر /etc/init.d:
 
 ```text
 #ls -la /etc/init.d
 ```
 
-#### Get more info for a file:
+#### اطلاعات بیشتر درباره فایل:
 
 ```text
 # stat -x <FILE NAME>
 ```
 
-#### Identify file type:
+#### تشخیص نوع فایل:
 
 ```text
 # file <FILE NAME>
 ```
 
-#### Look for immutable files:
+#### نمایش فایل های immutable:
 
 ```text
 # lsatt r -R / I g rep \-i-"
 ```
 
-#### View directory listing for /root:
+#### لیست فایل های مسیر /root:
 
 ```text
 #ls -la /root
 ```
 
-#### Look for files recently modified in current directory:
+#### نمایش لیست آخرین فایل های ویرایش شده:
 
 ```text
 # ls -alt I head
 ```
 
-#### Look for world writable files:
+#### لیست فایل های قابل نوشتن:
 
 ```text
 #find/ -xdev -type d\( -perm -0002 -a ! -perm -
 1000 \) -print
 ```
 
-#### Look for recent created files, in this case newer than Jan 02, 2017:
+#### لیست فایل هایی که به تازگی از تاریخ Jan 02, 2017 ایجاد شده اند:
 
 ```text
 #find/ -n ewermt 2017-01-02q
 ```
 
-#### List all files and attributes:
+#### لیست کلیه فایل ها و ویژگی های آن:
 
 ```text
 #find/ -printf
 %m;%Ax;%AT;%Tx;%TT;%Cx;%CT;%U;%G;%s;%p\n"
 ```
 
-#### Look at files in directory by most recent timestamp:\(Could be tampered\)
+#### لیست فایل های مسیری خاص که timestamp جدید تری دارند:\(ممکن است دستکاری شود\)
 
 ```text
 #ls -alt /<DIRECTORY>! head
 ```
 
-#### Get full file information:
+#### نمایش جزییات فایل:
 
 ```text
 # stat /<FILE PATH>/<SUSPICIOUS FILE NAME>
 ```
 
-#### Review file type:
+#### بررسی نوع فایل:
 
 ```text
 # file /<FILE PATH>/<SUSPICIOUS FILE NAME>
 ```
 
-#### Check for rootkits or signs of compromise:
+#### بررسی sign فایل ها برای شناسایی rootkit ها:
 
 #### Run unix-privsec-check tool:
 
@@ -795,14 +795,14 @@ https://raw.githubusercontent.com/pentestmonkey/unix
 # ./unix-privesc-check > output.txt
 ```
 
-#### Run chkrootkit:
+#### اجرا chkrootkit:
 
 ```text
 # apt-get install chkrootkit
 # chkrootkit
 ```
 
-#### Run rkhunter:
+#### اجرا rkhunter:
 
 ```text
 # apt-get install rkhunter
@@ -810,7 +810,7 @@ https://raw.githubusercontent.com/pentestmonkey/unix
 # rkhunter -check
 ```
 
-#### Run tiger:
+#### اجرا tiger:
 
 ```text
 # apt-get install tiger
@@ -818,7 +818,7 @@ https://raw.githubusercontent.com/pentestmonkey/unix
 #less /var/log/tiger/security.report,*
 ```
 
-#### Run lynis:
+#### اجرا lynis:
 
 ```text
 # apt-get install lynis
@@ -826,7 +826,7 @@ https://raw.githubusercontent.com/pentestmonkey/unix
 # more /var/logs/lynis. log
 ```
 
-#### Run Linux Malware Detect \(LMD\):
+#### اجرا Linux Malware Detect \(LMD\):
 
 ```text
 # wget http://www.rfxn.com/downloads/maldetect­
@@ -836,45 +836,45 @@ current.tar.gz
 # ./install.sh
 ```
 
-#### Get LMD updates:
+#### دریافت LMD updates:
 
 ```text
 # maldet -u
 ```
 
-#### Run LMD scan on directory:
+#### اجرا و اسکن LMD برروی مسیری خاص:
 
 ```text
 # maldet -a /<DIRECTORY>
 ```
 
-## MALWARE ANALYSIS
+## بررسی و تحلیل MALWARE
 
-### STATIC ANALYSIS BASICS
+### بررسی و تحلیل STATIC ANALYSIS
 
-#### Mount live Sysinternats toots drive:
+#### ایجاد Mount live Sysinternals tools drive:
 
 ```text
 \\live.sysinternals.com\tools
 ```
 
-#### Signature check of dlt, exe files:
+#### بررسی Signature مربوط به فایل های dlt و exe :
 
-Ref. [http://technet.microsoft.com/en­](http://technet.microsoft.com/en­) us/sysinternals/bb897441.aspx
+منبع. [http://technet.microsoft.com/en­](http://technet.microsoft.com/en­) us/sysinternals/bb897441.aspx
 
 ```text
 C:\> sigcheck.exe -u -e (:\<DIRECTORY>
 ```
 
-#### Send to VirusTotat:
+#### ارسال به VirusTotat:
 
 ```text
 C:\> sigcheck.exe -vt <SUSPICIOUS FILE NAME>
 ```
 
-#### Windows PE Analysis:
+#### بررسی و تحلیل Windows PE:
 
-#### View Hex and ASCI of PE{exe or any file\), with optional -n first 500 bytes:
+#### نمایش Hex و ASCI فایل های PE{exe یا هر فایلی\), با سوییچ و 500 بایت اول -n:
 
 ```text
 # hexdump -C -n 500 <SUSPICIOUS FILE NAME>
@@ -882,7 +882,7 @@ C:\> sigcheck.exe -vt <SUSPICIOUS FILE NAME>
 # xxd somefile.exe
 ```
 
-#### In Windows using debug toot {works for .java files too\):
+#### استفاده از ابزار debug در ویندوز {برای فایل های .java \):
 
 ```text
 C:\> debug <SUSPICIOUS FILE NAME>
@@ -890,13 +890,13 @@ C:\> debug <SUSPICIOUS FILE NAME>
 > -q (quit debugger)
 ```
 
-#### Windows PE analysis: 
+#### بررسی و تحلیل Windows PE: 
 
-#### PE Fite Compile Date/Time pert script below \(Windows PE only script\).
+#### اسکریپت زمان و تاریخ کامپایل فایل های PE \(فقط برای ویندوز\).
 
-Ref. [https://www.perl.org/get.html](https://www.perl.org/get.html) 
+منبع. [https://www.perl.org/get.html](https://www.perl.org/get.html) 
 
-Ref. [http://www.perlmonks.org/bare/?node\_id=484287](http://www.perlmonks.org/bare/?node_id=484287)
+منبع. [http://www.perlmonks.org/bare/?node\_id=484287](http://www.perlmonks.org/bare/?node_id=484287)
 
 ```text
 C:\> perl.exe <SCRIPT NAME>.pl <SUSPICIOUS FILE
@@ -919,25 +919,25 @@ timestamp value $ts" )
 _END_
 ```
 
-#### View strings within PE and optional string length -n option: 
+#### نمایش رشته های داخل PE و طول رشته ها با سوییچ -n: 
 
-#### Using stings in Linux:
+#### استفاده از strings در لینوکس:
 
 ```text
 # strings -n 10 <SUSPICIOUS FILE NAME>
 ```
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/strings.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/strings.aspx
 
-#### Using strings in Windows:
+#### استفاده از strings در ویندوز:
 
 ```text
 C:\> strings <SUSPICIOUS FILE NAME>
 ```
 
-#### Find Malware in memory dump using Volatility and Windows7SPFix64 profile:
+#### شناسایی Malware در memory، dump شده با استفاده از Volatility و پروفایل Windows7SPFix64:
 
-Ref, [https://github.com/volatilityfoundation/volatility](https://github.com/volatilityfoundation/volatility)
+منبع, [https://github.com/volatilityfoundation/volatility](https://github.com/volatilityfoundation/volatility)
 
 ```text
 # python vol.py -f <MEMORY DUMP FILE NAME>.raw -
@@ -945,7 +945,7 @@ profile=Win7SPFix64 malfind -D /<OUTPUT DUMP
 DIRECTORY>
 ```
 
-#### Find Malware with PID in memory dump using Volatility:
+#### شناسایی Malware با PID در memory، dump شده با استفاده از Volatility:
 
 ```text
 # python vol.py -f <MEMORY DUMP FILE NAME>.raw -
@@ -953,7 +953,7 @@ profile=Win7SPFix64 malfind -p <PID #> -D /<OUTPUT
 DUMP DIRECTORY>
 ```
 
-#### Find suspicious processes using Volatility:
+#### لیست فرآیند ها با استفاده از Volatility:
 
 ```text
 # python vol.py -f <MEMORY DUMP FILE NAME>.raw -
@@ -962,7 +962,7 @@ profile=Win7SPFix64 pslist
 profile=Win7SPFix64 pstree
 ```
 
-#### Find suspicious dlls using Volatility:
+#### لیست dll ها با استفاده از Volatility:
 
 ```text
 # python vol.py -f <MEMORY DUMP FILE NAME>.raw -
@@ -972,29 +972,29 @@ profile=Win7SPFix64 dlldump -D /<OUTPUT DUMP
 DIRECTORY>
 ```
 
-#### Malware analysis parsing Tool:
+#### ابزار بررسی و شناسایی Malware:
 
-Ref. [https://github.com/Defense-Cyber-Crime­](https://github.com/Defense-Cyber-Crime­) Center/DC3-MWCP
+منبع. [https://github.com/Defense-Cyber-Crime­](https://github.com/Defense-Cyber-Crime­) Center/DC3-MWCP
 
-#### Install dc3-mwcp tool:
+#### نصب ابزار dc3-mwcp:
 
 ```text
 # setup.py install
 ```
 
-#### Use dc3-mwcp tool to parse suspicious file:
+#### استفاده از ابزار dc3-mwcp برای بررسی فایل های مشکوک:
 
 ```text
 # mwcp-tool.py -p <SUSPICIOUS FILE NAME>
 ```
 
-## IDENTIFY MALWARE
+## شناسایی MALWARE
 
-### PROCESS EXPLORER
+### ابزار PROCESS EXPLORER
 
-Ref. [https://youtu.be/80vfTA9LrBM](https://youtu.be/80vfTA9LrBM)
+منبع. [https://youtu.be/80vfTA9LrBM](https://youtu.be/80vfTA9LrBM)
 
-**Step 1:** Look at running processes by running Process Explorer \(GUI\) and identify potential indicators of compromise:
+**مرحله 1:** لیست فرآیند ها و بررسی موارد مشکوک :
 
 * Items with no icon
 * Items with no description or company name
@@ -1003,52 +1003,52 @@ Ref. [https://youtu.be/80vfTA9LrBM](https://youtu.be/80vfTA9LrBM)
 * Suspicious files are in Windows directories or user profile
 * Purple items that are packed or compressed • Items with open TCP/IP endpoints
 
-**Step 2:** Signature File Check:
+**مرحله 2:** بررسی Signature فایل ها :
 
-\( See Sigcheck\)
+\( نمایش Sigcheck\)
 
-**Step 3:** Strings Check:
+**مرحله 3:** بررسی Strings:
 
 * Right click on suspicious process in Process Explorer and on pop up window choose Strings tab and review for suspicious URLs. Repeat for Image and Memory radio buttons.
 * Look for strange URLs in strings
 
-**Step 4:** DLL View:
+**مرحله 4:** نمایش DLL:
 
 * Pop open with Ct rl+D
 * Look for suspicious DLLs or services
 * Look for no description or no company name
 * Look at VirusTotal Results column
 
-**Step 5:** Stop and Remove Malware:
+**مرحله 5:** توقف و حذف Malware:
 
 * Right click and select Suspend for any identified suspicious processes
 * Right click and select Terminate Previous Suspended processes
 
-**Step 6:** Clean up where malicious files Auto start on reboot.
+**مرحله 6:** حذف فایل های مشکوکی که در راه اندازی سیستم اجرا می شوند.
 
 * Launch Autoruns
 * Under Options, Check the boxes Verify Code Signatures and Hide Microsoft entries
 * Look for suspicious process file from earlier steps on the everything tab and uncheck. Safer to uncheck than delete, in case of error.
 * Press FS, to refresh Autoruns, and confirm malicious file has not recreated the malicious entry into the previous unchecked auto start location.
 
-**Step 7:** Process Monitor
+**مرحله 7:** نظارت بر فرآیند ها
 
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/processmonitor.aspx
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/processmonitor.aspx
 
 * If malicious activity is still persistent, run Process Monitor.
 * Look for newly started process that start soon after terminated from previous steps.
 
-**Step 8:** Repeat as needed to find all malicious files and process and/or combine with other tools and suites.
+**مرحله 8:** تکرار مراحل بالا برای شناسایی فایل های مشکوک.
 
-## FILE HASH ANALYSIS
+## بررسی هش فایل ها
 
-### HASH QUERY
+### با استفاده از HASH QUERY
 
-#### VirusTotal online API query:
+#### استفاده از Api های VirusTotal:
 
 Ref. [https://www.virustotal.com/en/documentation/public­](https://www.virustotal.com/en/documentation/public­) api/ \(Prerequisite: Need a VT API Key\)
 
-#### Send a suspicious hash to VirtusTotal using cURL:
+#### ارسال هش فایل های مشکوک به virustotal با استفاده از ابزار curl:
 
 ```text
 # curl -v --request POST --url
@@ -1057,7 +1057,7 @@ apikey=<VT API KEY> -d 'resource=<SUSPICIOUS FILE
 HASH>'
 ```
 
-#### Send a suspicious file to VirusTotal using cURL:
+#### ارسال فایل های مشکوک به virustotal با استفاده از ابزار curl:
 
 ```text
 # curl -v -F 'file=/<PATH TO FILE>/<SUSPICIOUS FILE
@@ -1065,25 +1065,25 @@ NAME>' -F apikey=<VT API KEY>
 https://www.virustotal.com/vtapi/v2/file/scan
 ```
 
-#### Team Cymru API:
+#### استفاده از API های Team Cymru:
 
-Ref. [https://hash.cymru.com](https://hash.cymru.com), [http://totalhash.com](http://totalhash.com)
+منبع. [https://hash.cymru.com](https://hash.cymru.com), [http://totalhash.com](http://totalhash.com)
 
-**Team Cymru malware hash lookup using whois:** \(Note: Output is timestamp of last seen and detection rate\)
+**نمایش هش های malware ها با استفاده از Team Cymru و ابزار whois:** \(Note: Output is timestamp of last seen and detection rate\)
 
 ```text
 # whois -h hash,cymru.com <SUSPICIOUS FILE HASH>
 ```
 
-## HARD DRIVE AND MEMORY ACQUISITION
+## HARD DRIVE و MEMORY ACQUISITION
 
-### WINDOWS
+### ویندوز
 
-#### Create memory dump remotely:
+#### ایحاد memory، dump شده از راه دور:
 
-Ref. [http://kromer.pl/malware-analysis/memory­](http://kromer.pl/malware-analysis/memory­) forensics-using-volatility-toolkit-to-extract­ malware-samples-from-memory-dump/   
-Ref. [http://sourceforge.net/projects/mdd/](http://sourceforge.net/projects/mdd/)  
-Ref. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psexec.aspx
+منبع. [http://kromer.pl/malware-analysis/memory­](http://kromer.pl/malware-analysis/memory­) forensics-using-volatility-toolkit-to-extract­ malware-samples-from-memory-dump/   
+منبع. [http://sourceforge.net/projects/mdd/](http://sourceforge.net/projects/mdd/)  
+منبع. [https://technet.microsoft.com/en­](https://technet.microsoft.com/en­) us/sysinternals/psexec.aspx
 
 ```text
 C: \> psexec. exe \\<HOST NAME OR IP ADDRESS> -u
@@ -1091,16 +1091,16 @@ C: \> psexec. exe \\<HOST NAME OR IP ADDRESS> -u
 mdd_l,3.exe --o C:\memory.dmp
 ```
 
-Ref. [https://github.com/volatilityfoundation/volatility](https://github.com/volatilityfoundation/volatility)
+منبع. [https://github.com/volatilityfoundation/volatility](https://github.com/volatilityfoundation/volatility)
 
-#### Extract exe/dll from memory dump:
+#### استخراج فایل های exe و dll از memory، dump شده:
 
 ```text
 C:\> volatility dlldump -f memory.dmp -0 dumps/
 C:\> volatility procmemdump -f memory.dmp -0 dumps/
 ```
 
-Ref. [https://sourceforge.net/projects/dc3dd/files/dc3dd/7](https://sourceforge.net/projects/dc3dd/files/dc3dd/7) .2%20-%20Windows/
+منبع. [https://sourceforge.net/projects/dc3dd/files/dc3dd/7](https://sourceforge.net/projects/dc3dd/files/dc3dd/7) .2%20-%20Windows/
 
 ```text
 C:\> dc3dd,exe if=\\,\c: of=d:\<ATTACHED OR TARGET
@@ -1108,17 +1108,17 @@ DRIVE>\<IMAGE NAME>,dd hash=md5 log=d:\<MOUNTED
 LOCATION>\<LOG NAME>, log
 ```
 
-### LINUX
+### لینوکس
 
-#### Create memory dump:
+#### ایجاد memory dump:
 
 ```text
 dd if=/dev/fmem of=/tmp/<MEMORY FILE NAME>.dd
 ```
 
-#### Create memory dump using LiME:
+#### ایجاد memory dump با استفاده از ابزار LiME:
 
-Ref. [https://github.com/504ensicslabs/lime](https://github.com/504ensicslabs/lime)
+منبع. [https://github.com/504ensicslabs/lime](https://github.com/504ensicslabs/lime)
 
 ```text
 # wget
@@ -1133,26 +1133,26 @@ unzip master.zip
 format= raw"
 ```
 
-#### Make copy of suspicious process using process ID:
+#### ایجاد کپی از فرآیند مشکوک با استفاده از  process ID:
 
 ```text
 # cp /proc/<SUSPICIOUS PROCESS ID>/exe /<NEW SAVED
 LOCATION>
 ```
 
-#### Grab memory core dump of suspicious process:
+#### اطلاعات بیشتر درباره فرآیند مشکوک در memory، dump شده:
 
 ```text
 # gcore <PIO>
 ```
 
-#### Strings on gcore file:
+#### استفاده از Strings بر روی فایل:
 
 ```text
 # strings gcore.*
 ```
 
-#### Create a hard drive/partition copy with tog and hash options:
+#### ایجاد یک کپی از hard drive و partition شامل tog و hash ها:
 
 ```text
 # dd if=<INPUT DEVICE> of=<IMAGE FILE NAME>
@@ -1161,7 +1161,7 @@ of=/dev/<MOUNTED LOCATION>\<FILE NAME>.img hash=md5
 log=/<MOUNTED LOCATION>/<LOG NAME>.log
 ```
 
-#### Create a remote hard drive/partition over SSH:
+#### ایجاد hard drive و partition بر روی SSH:
 
 ```text
 # dd if=/dev/<INPUT DEVICE> I ssh <USER
@@ -1169,32 +1169,31 @@ NAME>@<DESTINATION IP ADDRESS> "dd of=<DESTINATION
 PATH>"
 ```
 
-#### Send hard drive image zipped over netcat:
+#### ارسال hard drive image، zip شده بر روی netcat:
 
-#### Sending host:
+#### ارسال به میزبان:
 
 ```text
 # bzip2 -c /dev/<INPUT DEVICE> I nc <DESTINATION IP
 ADDRESS> <PICK A PORT>
 ```
 
-#### Receiving host:
+#### دریافت توسط میزبان:
 
 ```text
 # nc -p <PICK SAME PORT> -l lbzip2 -d I dd
 of=/dev/sdb
 ```
 
-#### Sending host:
+#### ارسال به میزبان host:
 
 ```text
 # dd if=/dev/<INPUT DEVICE> bs=16M I nc <PORT>
 ```
 
-#### Receiving host with Pipe Viewer meter:
+#### دریافت توسط میزبان با استفاده از Pipe Viewer meter:
 
 ```text
 # nc -p <SAME PORT> -l -vv I pv -r I dd
 of=/dev/<INPUT DEVICE> bs=16M
 ```
-
