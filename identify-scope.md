@@ -293,7 +293,9 @@ C:\> psloggedon \\computername
 
 #### اسکریپت اسکن حلقه ای :
 
+```text
 C:&gt; for /L %i in \(1,1,254\) do psloggedon \192.168.l.%i &gt;&gt; C:\users\_output.txt
+```
 
 ### کلمه عبور ها
 
