@@ -1206,4 +1206,9 @@ https://gchq.github.io/CyberChef/
 https://crackstation.net/
 ```
 
+### بررسی دادها های مخفی در فایل با StegCracker
+
+```text
+stegcracker image.jpg
+```
 
