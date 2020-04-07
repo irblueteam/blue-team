@@ -1206,14 +1206,14 @@ https://gchq.github.io/CyberChef/
 https://crackstation.net/
 ```
 
-### بررسی دادها های مخفی در فایل با StegCracker
+### بررسی داده های مخفی در فایل با StegCracker
 
 ```text
 https://github.com/Paradoxis/StegCracker
 For example: stegcracker image.jpg
 ```
 
-### بررسی دادها های مخفی در عکس با اسکریپت بش StegExtract
+### بررسی داده های مخفی در عکس با اسکریپت بش StegExtract
 
 ```text
 sudo curl https://raw.githubusercontent.com/evyatarmeged/stegextract/master/stegextract > /usr/local/bin/stegextract
@@ -1221,7 +1221,7 @@ sudo chmod +x /usr/local/bin/stegextract
 For example: stegextract simple.gif --analysis --string
 ```
 
-### بررسی دادها های مخفی در عکس با StegSolve
+### بررسی داده های مخفی در عکس با StegSolve
 
 ```text
 wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
@@ -1229,9 +1229,16 @@ chmod +x stegsolve.jar
 java -jar stegsolve.jar
 ```
 
-### بررسی دادها های مخفی در فایل با exiftool
+### بررسی داده های مخفی در فایل با exiftool
 
 ```text
 sudo apt-get install libimage-exiftool-perl
 For example: exiftool poissonrecon.pdf
+```
+
+### بررسی داده های مخفی در موسیقی با Sonic Visualizer
+
+```text
+https://www.sonicvisualiser.org/download.html
+For example: Pane->Add Spectrogram->Channel 1
 ```
