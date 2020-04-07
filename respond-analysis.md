@@ -1227,5 +1227,11 @@ For example: stegextract simple.gif --analysis --string
 wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
 chmod +x stegsolve.jar
 java -jar stegsolve.jar
+```
 
+### بررسی دادها های مخفی در فایل با exiftool
+
+```text
+sudo apt-get install libimage-exiftool-perl
+For example: exiftool poissonrecon.pdf
 ```
