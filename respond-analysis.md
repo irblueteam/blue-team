@@ -1197,3 +1197,13 @@ of=/dev/sdb
 # nc -p <SAME PORT> -l -vv I pv -r I dd
 of=/dev/<INPUT DEVICE> bs=16M
 ```
+
+#### وبسایت های رمزنگاری
+
+```text
+https://www.dcode.fr/
+https://gchq.github.io/CyberChef/
+https://crackstation.net/
+```
+
+
