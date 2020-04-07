@@ -1209,6 +1209,7 @@ https://crackstation.net/
 ### بررسی دادها های مخفی در فایل با StegCracker
 
 ```text
-stegcracker image.jpg
+https://github.com/Paradoxis/StegCracker
+For example: stegcracker image.jpg
 ```
 
