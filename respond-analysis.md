@@ -1242,3 +1242,9 @@ For example: exiftool poissonrecon.pdf
 https://www.sonicvisualiser.org/download.html
 For example: Pane->Add Spectrogram->Channel 1
 ```
+
+### بررسی داده های مخفی در موسیقی با spek
+
+```text
+apt-get install spek
+```
