@@ -1213,3 +1213,11 @@ https://github.com/Paradoxis/StegCracker
 For example: stegcracker image.jpg
 ```
 
+### بررسی دادها های مخفی در عکس با StegSolve
+
+```text
+wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
+chmod +x stegsolve.jar
+java -jar stegsolve.jar
+
+```
