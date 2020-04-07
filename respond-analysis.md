@@ -1213,6 +1213,14 @@ https://github.com/Paradoxis/StegCracker
 For example: stegcracker image.jpg
 ```
 
+### بررسی دادها های مخفی در عکس با اسکریپت بش StegExtract
+
+```text
+sudo curl https://raw.githubusercontent.com/evyatarmeged/stegextract/master/stegextract > /usr/local/bin/stegextract
+sudo chmod +x /usr/local/bin/stegextract
+For example: stegextract simple.gif --analysis --string
+```
+
 ### بررسی دادها های مخفی در عکس با StegSolve
 
 ```text
