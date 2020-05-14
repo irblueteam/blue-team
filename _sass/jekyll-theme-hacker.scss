@@ -119,9 +119,7 @@ header h1 {
   font-weight: bold;
   font-family: Vazir, monospace;
   color: $conifer;//$header;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-               0 0 5px rgba(181, 232, 83, 0.1),
-               0 0 10px rgba(181, 232, 83, 0.1);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1), 0 0 5px rgba(39, 119, 181, 0.48), 0 0 10px rgba(39, 119, 181, 0.33);
   letter-spacing: -1px;
   -webkit-font-smoothing: antialiased;
 }
