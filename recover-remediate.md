@@ -341,3 +341,9 @@ PS C:\> Stop-Process -ID <PID>
 # mv /usr/sbin/<SUSPICIOUS FILE NAME>
 /home/quarantine/
 ```
+
+#### توقف برنامه استفاده کننده از پورت خاص
+
+```text
+fuser -k 80/tcp
+```
