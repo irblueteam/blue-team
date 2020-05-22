@@ -940,37 +940,29 @@ C:\> strings <SUSPICIOUS FILE NAME>
 منبع, [https://github.com/volatilityfoundation/volatility](https://github.com/volatilityfoundation/volatility)
 
 ```text
-# python vol.py -f <MEMORY DUMP FILE NAME>.raw -
-profile=Win7SPFix64 malfind -D /<OUTPUT DUMP
-DIRECTORY>
+# python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 malfind -D /<OUTPUT DUMP DIRECTORY>
 ```
 
 #### شناسایی Malware با PID در memory، dump شده با استفاده از Volatility:
 
 ```text
-# python vol.py -f <MEMORY DUMP FILE NAME>.raw -
-profile=Win7SPFix64 malfind -p <PID #> -D /<OUTPUT
-DUMP DIRECTORY>
+# python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 malfind -p <PID #> -D /<OUTPUT DUMP DIRECTORY>
 ```
 
 #### لیست فرآیند ها با استفاده از Volatility:
 
 ```text
-# python vol.py -f <MEMORY DUMP FILE NAME>.raw -
-profile=Win7SPFix64 pslist
-# python vol.py -f <MEMORY DUMP FILE NAME>,raw -
-profile=Win7SPFix64 pstree
+# python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 pslist
+# python vol.py -f <MEMORY DUMP FILE NAME>,raw -−profile=Win7SPFix64 pstree
 ```
 
 #### لیست dll ها با استفاده از Volatility:
 
 ```text
-# python vol.py -f <MEMORY DUMP FILE NAME>.raw -
-profile=Win7SPFix64 dlllist
-# python vol.py -f <MEMORY DUMP FILE NAME>.raw -
-profile=Win7SPFix64 dlldump -D /<OUTPUT DUMP
-DIRECTORY>
+# python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 dlllist
+# python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 dlldump -D /<OUTPUT DUMP DIRECTORY>
 ```
+ 
 
 #### ابزار بررسی و شناسایی Malware:
 
