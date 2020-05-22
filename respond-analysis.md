@@ -963,6 +963,11 @@ C:\> strings <SUSPICIOUS FILE NAME>
 # python vol.py -f <MEMORY DUMP FILE NAME>.raw --profile=Win7SPFix64 dlldump -D /<OUTPUT DUMP DIRECTORY>
 ```
  
+ #### خروجی از حافظه پروسه مشخص
+ 
+ ```text
+ volatility -f flounder-pc-memdump.elf --profile=<PROFILE> memdump -p <PID> -D dump
+ ```
 
 #### ابزار بررسی و شناسایی Malware:
 
