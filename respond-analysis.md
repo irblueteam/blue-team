@@ -858,6 +858,20 @@ current.tar.gz
 usbrip events violations auth.json
 ```
 
+## بررسی و تحلیل git
+
+### نمایش تاریخچه
+
+```text
+git log
+```
+
+### نمایش محتویات commit
+
+```text
+git checkout <commit> --force 
+```
+
 ## بررسی و تحلیل MALWARE
 
 ### بررسی و تحلیل STATIC ANALYSIS
