@@ -848,6 +848,16 @@ current.tar.gz
 # maldet -a /<DIRECTORY>
 ```
 
+## بررسی و تحلیل USB
+
+[usbrip](https://github.com/snovvcrash/usbrip)
+
+### نمایش وقایع 
+
+```text
+usbrip events violations auth.json
+```
+
 ## بررسی و تحلیل MALWARE
 
 ### بررسی و تحلیل STATIC ANALYSIS
