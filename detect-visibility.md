@@ -296,6 +296,12 @@ fields port 80 I sort I uniq -c I sort -r
 tshark -Y "http.request.method==POST" -T fields -e http.file_data -r keeptryin.pcap
 ```
 
+#### استخراج مقدار response در DNS
+
+```text
+tshark -Y "dns.txt" -T fields -e dns.qry.name -n -r keeptryin.pcap
+```
+
 ### دستور SNORT
 
 #### اجرای تست بر روی فایل تنظیمات snort:
