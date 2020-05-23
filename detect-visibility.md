@@ -290,6 +290,12 @@ fields I grep exe
 fields port 80 I sort I uniq -c I sort -r
 ```
 
+#### استخراج مقادیر درخواست های POST
+
+```text
+tshark -Y "http.request.method==POST" -T fields -e http.file_data -r keeptryin.pcap
+```
+
 ### دستور SNORT
 
 #### اجرای تست بر روی فایل تنظیمات snort:
