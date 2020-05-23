@@ -896,6 +896,12 @@ C:\> sigcheck.exe -u -e (:\<DIRECTORY>
 C:\> sigcheck.exe -vt <SUSPICIOUS FILE NAME>
 ```
 
+#### بررسی و تحلیل شل کدها 
+
+‍‍‍‍```text
+http://sandsprite.com/CodeStuff/scdbg_manual/MANUAL_EN.html
+```
+
 #### بررسی و تحلیل Windows PE:
 
 #### نمایش Hex و ASCI فایل های PE{exe یا هر فایلی\), با سوییچ و 500 بایت اول -n:
