@@ -148,9 +148,7 @@ subject -startdate -enddate -fingerprint
 #### اسختراج نام سرور در گواهینامه ها:
 
 ```text
-# tshark -nr <PCAP FILE NAME> -Y
-"ssl. handshake. ciphersuites" -Vx I grep "Server
-Name:" I sort I uniq -c I sort -r
+# tshark -nr <PCAP FILE NAME> -Y "ssl. handshake. ciphersuites" -Vx I grep "Server Name:" I sort I uniq -c I sort -r
 ```
 
 #### اسختراج اطلاعات درباره گواهینامه:
