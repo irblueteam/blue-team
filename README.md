@@ -2,7 +2,7 @@
 
 ## Overview
 
-Some Cheatsheet for Red Team.
+Some Cheatsheet for Blue Team.
 
 Brought to you by:
 
